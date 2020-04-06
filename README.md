@@ -36,3 +36,11 @@ After this, you can do any last potential fixes, version updates, etc.. When don
 - merge the release branch to develop
 - delete the release branch
 - check out the develop branch
+
+# Working on the Mobile App project
+First of all, you'll need to have installed React Native in your local environment. [Follow the instructions](https://reactnative.dev/docs/environment-setup) to set up the development environment from the React Native official documentation.
+
+Once you installed React Native and its dependencies:
+- Run `npm install` to install project specific dependencies.
+- In case that you are developing for android, open the "android/app" folder of the project in Android Studio and run the emulator.
+- Run `npx react-native run-android` or `npx react-native run-ios` depending on the operating system you want to develop.
