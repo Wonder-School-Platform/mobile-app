@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, View, Text } from 'react-native';
 
 const Topbar = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
