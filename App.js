@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   StatusBar,
+  ScrollView,
   Text,
   View
 } from 'react-native';
@@ -8,19 +9,21 @@ import { ThemeProvider } from 'styled-components';
 
 import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
-import { MainLayout } from './src/theme/Styles'
-import PostSkeleton from './src/components/PostSkeleton'
+import { MainLayout } from './src/theme/Styles';
+import Post from './src/components/Post';
 
 const App: () => React$Node = () => {
   return (
     <ThemeProvider theme={Theme}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Header />
-      <MainLayout>
-        <PostSkeleton />
-        <PostSkeleton opacity='0.75' />
-        <PostSkeleton opacity='0.5' />
-      </MainLayout>
+      <ScrollView>
+        <MainLayout>
+          <Post category='menu' />
+          <Post category='football' />
+          <Post category='winter' />
+        </MainLayout>
+      </ScrollView>
     </ThemeProvider>
   );
 };

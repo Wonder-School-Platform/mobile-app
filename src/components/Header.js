@@ -9,7 +9,7 @@ const Topbar = styled.View`
 
 const Title = styled.Text`
   color: ${({ theme }) => theme.colors.overPrimary};
-  font-size: ${({ theme }) => theme.fontSizes.title};
+  font-size: ${({ theme }) => theme.fontSizes.schoolName};
 `
 
 const Header = () => {

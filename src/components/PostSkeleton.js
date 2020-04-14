@@ -1,18 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import styled from 'styled-components';
-
-const CardContainer = styled.View`
-  background: white;
-  border-radius: 10px;
-  padding: 16px 21px 24px 15px;
-  justify-content:flex-start;
-  flex: 0 0 auto;
-  flex-direction: column;
-  overflow: hidden;
-  elevation: 2;
-  margin-bottom: 16px;
-`
+import { CardContainer } from './Post';
 
 const Circle = styled.View`
   background: #d8d8d8;

@@ -2,10 +2,12 @@ export default {
   colors: {
     primary: '#351077',
     overPrimary: '#ffffff',
-    background: '#fafafa'
+    background: '#fafafa',
+    text: '#202020'
   },
   fontSizes: {
-    title: '28px',
-    regular: '28px'
+    schoolName: '22px',
+    titles: '18px',
+    regular: '18px'
   }
 }
