@@ -54,6 +54,12 @@ export const Date = styled.Text`
   flex:1 1 auto;
   flex-wrap: wrap;
 `
+export const LikesRow = styled.View`
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top:16px;
+`
 //Skeleton styles
 export const Circle = styled.View`
   background: #d8d8d8;

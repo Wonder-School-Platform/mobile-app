@@ -19,7 +19,7 @@ const App: () => React$Node = () => {
       <Header />
       <ScrollView>
         <MainLayout>
-          <Post category='menu' />
+          <Post category='menu' theme={Theme} />
           <Post category='football' />
           <Post category='winter' />
         </MainLayout>

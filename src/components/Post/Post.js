@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Paragraph } from '../../theme/Styles';
-import { CardContainer, FeaturedImage, Header, Icon, Container, Title, Date } from './Styles';
+import { CardContainer, FeaturedImage, Header, Icon, Container, Title, Date, LikesRow } from './Styles';
 
 import * as Icons from '../Icons';
 
 const Post = (props) => {
-  const { category } = props;
+  const { category, theme } = props;
   let iconType;
   switch (category) {
     case 'menu':
-      iconType = <Icons.Food fill={'#f12000'} />
+      iconType = <Icons.Food fill={theme.colors.overPrimary} />
       break;
     case 'football':
       iconType = <Icons.Football fill={'#fff000'} />
@@ -33,12 +33,18 @@ const Post = (props) => {
             <Title>This week's menu</Title>
             <Date>Monday 13th, 7:00 p.m. School Football field</Date>
           </Container>
-          {category === 'menu' && <Icons.Arrow style={{ alignSelf: 'flex-start' }} fill={'#351077'} />}
+          {category === 'menu' && <Icons.Arrow style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />}
         </Header>
         <Container>
           <Paragraph>
             Our menu is now available including pizza, chilli, enchiladas and more.
           </Paragraph>
+          <LikesRow>
+            <Icons.Like fill={'#000000'} />
+            <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>
+              22 Likes
+            </Text>
+          </LikesRow>
         </Container>
       </View>
     </CardContainer >
