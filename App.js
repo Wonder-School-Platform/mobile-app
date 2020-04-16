@@ -10,7 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
-import Post from './src/components/Post';
+import Post from './src/components/Post/Post';
 
 const App: () => React$Node = () => {
   return (
