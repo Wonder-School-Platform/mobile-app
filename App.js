@@ -10,20 +10,16 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
-import Post from './src/components/Post/Post';
+import Home from './src/screens/Home';
 
 const App: () => React$Node = () => {
   return (
     <ThemeProvider theme={Theme}>
       <StatusBar barStyle="light-content" />
       <Header />
-      <ScrollView>
-        <MainLayout>
-          <Post category='menu' theme={Theme} />
-          <Post category='football' />
-          <Post category='winter' />
-        </MainLayout>
-      </ScrollView>
+      <MainLayout>
+        <Home theme={Theme} />
+      </MainLayout>
     </ThemeProvider>
   );
 };

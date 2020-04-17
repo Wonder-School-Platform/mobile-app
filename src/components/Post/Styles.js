@@ -54,6 +54,12 @@ export const Date = styled.Text`
   flex:1 1 auto;
   flex-wrap: wrap;
 `
+export const Location = styled.Text`
+  color: ${({ theme }) => theme.colors.text};
+  font-size: ${({ theme }) => theme.fontSizes.titles};
+  flex:1 1 auto;
+  flex-wrap: wrap;
+`
 export const LikesRow = styled.View`
   flex-direction: row;
   justify-content: flex-end;
@@ -71,15 +77,14 @@ export const Circle = styled.View`
 export const Bar = styled.View`
   background: #d8d8d8;
   border-radius: 5px;
-  max-height: ${props => (props.sizeV ? props.sizeV : '13px')};
+  height: ${props => (props.sizeV ? props.sizeV : '13px')};
   opacity: ${props => (props.opacity ? props.opacity : '1')};
-  flex:0 1 13px;
   max-width:${props => (props.sizeH ? props.sizeH : '100%')};
   margin:6px;
 `
 export const SkeletonHeader = styled.View`
   /* border:1px solid red; */
-  display: flex;
+  flex:1;
   flex-direction: row;
   justify-content: flex-start;
   height: 48px;
@@ -87,8 +92,8 @@ export const SkeletonHeader = styled.View`
   opacity: ${props => (props.opacity ? props.opacity : '1')};
 `
 export const BarContainer = styled.View`
-  /* border:1px solid green; */
-  flex:0 0 100px;
+  
+  flex:1;
   justify-content: center;
   flex-direction: column;
   opacity: ${props => (props.opacity ? props.opacity : '1')};

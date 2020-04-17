@@ -5,14 +5,14 @@ import { CardContainer, Circle, Bar, SkeletonHeader, BarContainer } from './Styl
 const PostSkeleton = (props) => {
   return (
     <CardContainer styles={styles.shadow}>
-      <SkeletonHeader opacity={props.opacity}>
+      <SkeletonHeader opacity={props.opacity} style={{ paddingHorizontal: 10 }}>
         <Circle />
         <BarContainer>
           <Bar sizeH='171px' opacity='0.8' />
           <Bar sizeH='96px' sizeV='8px' opacity='0.6' />
         </BarContainer>
       </SkeletonHeader>
-      <BarContainer opacity={props.opacity}>
+      <BarContainer opacity={props.opacity} style={{ paddingHorizontal: 10 }}>
         <Bar opacity='0.6' />
         <Bar sizeH='80%' opacity='0.5' />
         <Bar sizeH='88%' opacity='0.4' />

@@ -1,13 +1,16 @@
 import React from 'react';
-
 import {
-  View,
+  View, SafeAreaView
 } from 'react-native';
+import PostList from '../containers/PostList';
 
 const Home = (props) => {
+  const { theme } = props;
   return (
     <View>
-      {props.children}
+      <SafeAreaView>
+        <PostList theme={theme} />
+      </SafeAreaView>
     </View>
   );
 };

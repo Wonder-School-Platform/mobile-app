@@ -1,14 +1,37 @@
 import React from 'react';
-import {
-  View, Text, Image
-} from 'react-native';
+import { FlatList } from 'react-native';
+import Post from '../components/Post/Post';
+import PostListSkeleton from '../containers/PostListSkeleton';
 
-const postList = () => {
+const PostList = (props) => {
+  const { theme } = props;
+  const AllPosts = [
+    {
+      title: 'This is the post title',
+      date: 'Monday 13th, 7:00 p.m.',
+      location: 'School Football field',
+      excerpt: 'Our menu is now available including pizza, chilli, enchiladas and more.',
+      category: 'menu',
+      key: '1'
+    },
+    {
+      title: 'This is the post title',
+      date: 'Monday 13th, 7:00 p.m.',
+      location: 'School Football field',
+      excerpt: 'Our menu is now available including pizza, chilli, enchiladas and more.',
+      category: 'football',
+      featuredImg: 'yes',
+      key: '2'
+    },
+  ]
   return (
-    <View>
-      <Text>This is a Post</Text>
-    </View>
+    <FlatList
+      data={AllPosts}
+      ListEmptyComponent={() => <PostListSkeleton />}
+      renderItem={({ item }) => <Post theme={theme} {...item} />}
+      keyExtractor={item => item.key}
+    />
   );
 };
 
-export default postList;
+export default PostList;
