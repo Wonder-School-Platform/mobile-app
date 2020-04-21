@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { Paragraph } from '../../theme/Styles';
-import { CardContainer, FeaturedImage, Header, Icon, Container, Title, Date, Location, LikesRow } from './Styles';
+import { CardContainer, FeaturedImage, Header, Container, Title, Date, Location, LikesRow } from './Styles';
+import { Icon } from '../../theme/Styles';
 
 import * as Icons from '../Icons';
 
@@ -41,14 +42,14 @@ const Post = (props) => {
             <Date>{date}</Date>
             <Location>{location}</Location>
           </Container>
-          {category === 'menu' && <Icons.Arrow style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />}
+          {category === 'menu' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />}
         </Header>
         <Container>
           <Paragraph>
             Our menu is now available including pizza, chilli, enchiladas and more.
           </Paragraph>
           <LikesRow>
-            <Icons.Like fill={'#000000'} />
+            <Icons.Like fill={theme.colors.primary} />
             <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>
               22 Likes
             </Text>

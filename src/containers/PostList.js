@@ -3,6 +3,12 @@ import { FlatList } from 'react-native';
 import Post from '../components/Post/Post';
 import PostListSkeleton from '../containers/PostListSkeleton';
 
+import styled from 'styled-components';
+
+const ListContainer = styled.FlatList`
+  padding: 24px;
+`
+
 const PostList = (props) => {
   const { theme } = props;
   const AllPosts = [
@@ -25,7 +31,7 @@ const PostList = (props) => {
     },
   ]
   return (
-    <FlatList
+    <ListContainer
       data={AllPosts}
       ListEmptyComponent={() => <PostListSkeleton />}
       renderItem={({ item }) => <Post theme={theme} {...item} />}

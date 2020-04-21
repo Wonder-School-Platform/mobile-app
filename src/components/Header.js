@@ -12,11 +12,15 @@ const Title = styled.Text`
   font-size: ${({ theme }) => theme.fontSizes.schoolName};
 `
 
-const Header = () => {
+const Header = (props) => {
+  const { title, school } = props;
+  const currentScreen = 'generic';
   return (
     <SafeAreaView>
       <Topbar>
-        <Title>Custom School Name</Title>
+        <Title>
+          {currentScreen === 'Home' ? school : title}
+        </Title>
       </Topbar>
     </SafeAreaView>
   );

@@ -1,4 +1,5 @@
-export Arrow from '../images/icons/arrow.svg';
+export ArrowLeft from '../images/icons/arrow-left.svg';
+export ArrowRight from '../images/icons/arrow-right.svg';
 export Art from '../images/icons/art.svg';
 export Baseball from '../images/icons/baseball.svg';
 export Basketball from '../images/icons/basketball.svg';

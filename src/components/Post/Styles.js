@@ -24,7 +24,6 @@ export const Header = styled.View`
   margin-bottom:16px;
   min-height: 48px;
 `
-
 export const Icon = styled.View`
   align-self: flex-start;
   align-items: center;
