@@ -1,13 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { CardContainer, Circle, Bar, SkeletonHeader, BarContainer } from './Styles';
+import { CardContainer, Circle, Bar, SkeletonHeader, BarContainer } from '../../theme/Styles';
 
 const PostSkeleton = (props) => {
   return (
     <CardContainer styles={styles.shadow}>
       <SkeletonHeader opacity={props.opacity} style={{ paddingHorizontal: 10 }}>
         <Circle />
-        <BarContainer>
+        <BarContainer style={{ height: 48, width: '100%' }}>
           <Bar sizeH='171px' opacity='0.8' />
           <Bar sizeH='96px' sizeV='8px' opacity='0.6' />
         </BarContainer>

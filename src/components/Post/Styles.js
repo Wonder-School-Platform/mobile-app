@@ -65,35 +65,3 @@ export const LikesRow = styled.View`
   align-items: center;
   margin-top:16px;
 `
-//Skeleton styles
-export const Circle = styled.View`
-  background: #d8d8d8;
-  border-radius:24px;
-  height:48px;
-  margin-right:12px;
-  width:48px;
-`
-export const Bar = styled.View`
-  background: #d8d8d8;
-  border-radius: 5px;
-  height: ${props => (props.sizeV ? props.sizeV : '13px')};
-  opacity: ${props => (props.opacity ? props.opacity : '1')};
-  max-width:${props => (props.sizeH ? props.sizeH : '100%')};
-  margin:6px;
-`
-export const SkeletonHeader = styled.View`
-  /* border:1px solid red; */
-  flex:1;
-  flex-direction: row;
-  justify-content: flex-start;
-  height: 48px;
-  margin-bottom:24px;
-  opacity: ${props => (props.opacity ? props.opacity : '1')};
-`
-export const BarContainer = styled.View`
-  
-  flex:1;
-  justify-content: center;
-  flex-direction: column;
-  opacity: ${props => (props.opacity ? props.opacity : '1')};
-`

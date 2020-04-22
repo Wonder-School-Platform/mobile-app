@@ -11,7 +11,7 @@ import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
 /* import Home from './src/screens/Home'; */
-import WeeklyMenu from './src/screens/WeeklyMenu';
+import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton';
 
 const App: () => React$Node = () => {
   return (
@@ -20,7 +20,7 @@ const App: () => React$Node = () => {
       <Header title='Section title' school='Custom School Name' />
       <MainLayout>
         {/* <Home theme={Theme} /> */}
-        <WeeklyMenu theme={Theme} />
+        <WeeklyMenuSkeleton />
       </MainLayout>
     </ThemeProvider>
   );
