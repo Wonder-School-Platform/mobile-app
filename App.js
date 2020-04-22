@@ -11,6 +11,9 @@ import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
 /* import Home from './src/screens/Home'; */
+/* import PostListSkeleton from './src/containers/PostListSkeleton'; */
+/* import FullPost from './src/screens/FullPost'; */
+/* import WeeklyMenu from './src/screens/WeeklyMenu'; */
 import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton';
 
 const App: () => React$Node = () => {
@@ -20,6 +23,9 @@ const App: () => React$Node = () => {
       <Header title='Section title' school='Custom School Name' />
       <MainLayout>
         {/* <Home theme={Theme} /> */}
+        {/* <FullPost theme={Theme} /> */}
+        {/* <WeeklyMenu /> */}
+        {/* <PostListSkeleton /> */}
         <WeeklyMenuSkeleton />
       </MainLayout>
     </ThemeProvider>

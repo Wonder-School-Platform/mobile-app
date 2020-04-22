@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { CardContainer, Circle, Bar, SkeletonHeader, BarContainer } from '../../theme/Styles';
+import { Circle, Bar, SkeletonHeader, BarContainer } from '../../theme/Styles';
+import { CardContainer } from '../Post/Styles';
 
 const PostSkeleton = (props) => {
   return (

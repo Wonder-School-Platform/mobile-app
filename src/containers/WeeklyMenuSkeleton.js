@@ -1,8 +1,6 @@
 import React from 'react';
-import { FeaturedImage } from '../components/WeeklyMenu/MenuItem';
 import WeekNavigation from '../components/WeeklyMenu/WeekNavigation';
-import { Header } from '../components/WeeklyMenu/Styles';
-import { Circle, Bar, SkeletonHeader, BarContainer } from '../theme/Styles';
+import { Circle, Bar, SkeletonHeader, BarContainer, FeaturedImage, PostHeader } from '../theme/Styles';
 
 const WeeklyMenuSkeleton = (props) => {
   return (
@@ -10,7 +8,7 @@ const WeeklyMenuSkeleton = (props) => {
       <FeaturedImage>
         <WeekNavigation />
       </FeaturedImage>
-      <Header>
+      <PostHeader>
         <SkeletonHeader opacity={props.opacity} style={{ paddingHorizontal: 10, marginBottom: 0 }}>
           <Circle />
           <BarContainer style={{ height: 48, width: '100%' }}>
@@ -18,7 +16,7 @@ const WeeklyMenuSkeleton = (props) => {
             <Bar sizeH='96px' sizeV='8px' opacity='0.6' />
           </BarContainer>
         </SkeletonHeader>
-      </Header>
+      </PostHeader>
       <BarContainer style={{ paddingHorizontal: 24, marginBottom: 24 }}>
         <Bar sizeH='95%' opacity='0.2' />
         <Bar sizeH='80%' opacity='0.2' />
