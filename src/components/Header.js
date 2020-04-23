@@ -9,12 +9,12 @@ const Topbar = styled.View`
 
 const Title = styled.Text`
   color: ${({ theme }) => theme.colors.overPrimary};
-  font-size: ${({ theme }) => theme.fontSizes.schoolName};
+  font-family: 'Muli-Bold';
+  font-size: ${currentScreen === 'Home' ? '22px' : '18px'};
 `
 
 const Header = (props) => {
-  const { title, school } = props;
-  const currentScreen = 'generic';
+  const { title, school, currentScreen } = props;
   return (
     <SafeAreaView>
       <Topbar>

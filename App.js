@@ -14,19 +14,22 @@ import { MainLayout } from './src/theme/Styles';
 /* import PostListSkeleton from './src/containers/PostListSkeleton'; */
 /* import FullPost from './src/screens/FullPost'; */
 /* import WeeklyMenu from './src/screens/WeeklyMenu'; */
-import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton';
+/* import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton'; */
 
 const App: () => React$Node = () => {
   return (
     <ThemeProvider theme={Theme}>
       <StatusBar barStyle="light-content" />
-      <Header title='Section title' school='Custom School Name' />
+      <Header
+        title='Section title'
+        school='Custom School Name'
+        currentScreen='Generic' />
       <MainLayout>
         {/* <Home theme={Theme} /> */}
         {/* <FullPost theme={Theme} /> */}
         {/* <WeeklyMenu /> */}
         {/* <PostListSkeleton /> */}
-        <WeeklyMenuSkeleton />
+        {/* <WeeklyMenuSkeleton /> */}
       </MainLayout>
     </ThemeProvider>
   );
