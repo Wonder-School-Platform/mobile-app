@@ -15,6 +15,7 @@ import { MainLayout } from './src/theme/Styles';
 /* import FullPost from './src/screens/FullPost'; */
 /* import WeeklyMenu from './src/screens/WeeklyMenu'; */
 /* import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton'; */
+/* import Splash from './src/screens/Splash'; */
 
 const App: () => React$Node = () => {
   return (
@@ -23,13 +24,14 @@ const App: () => React$Node = () => {
       <Header
         title='Section title'
         school='Custom School Name'
-        currentScreen='Generic' />
+        currentScreen='generic' />
       <MainLayout>
         {/* <Home theme={Theme} /> */}
         {/* <FullPost theme={Theme} /> */}
         {/* <WeeklyMenu /> */}
         {/* <PostListSkeleton /> */}
         {/* <WeeklyMenuSkeleton /> */}
+        {/* <Splash /> */}
       </MainLayout>
     </ThemeProvider>
   );
