@@ -16,15 +16,16 @@ import { MainLayout } from './src/theme/Styles';
 /* import WeeklyMenu from './src/screens/WeeklyMenu'; */
 /* import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton'; */
 /* import Splash from './src/screens/Splash'; */
+import Onboarding from './src/screens/Onboarding';
 
 const App: () => React$Node = () => {
   return (
     <ThemeProvider theme={Theme}>
       <StatusBar barStyle="light-content" />
-      <Header
+      {/* <Header
         title='Section title'
         school='Custom School Name'
-        currentScreen='generic' />
+        currentScreen='generic' /> */}
       <MainLayout>
         {/* <Home theme={Theme} /> */}
         {/* <FullPost theme={Theme} /> */}
@@ -32,6 +33,7 @@ const App: () => React$Node = () => {
         {/* <PostListSkeleton /> */}
         {/* <WeeklyMenuSkeleton /> */}
         {/* <Splash /> */}
+        <Onboarding />
       </MainLayout>
     </ThemeProvider>
   );

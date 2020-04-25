@@ -4,10 +4,15 @@ export const MainLayout = styled.View`
   background: ${({ theme }) => theme.colors.background};
 `
 export const Paragraph = styled.Text`
+  color: ${({ theme }) => theme.colors.text};
+  font-family: 'Lato-Regular';
   font-size: ${({ theme }) => theme.fontSizes.regular};
-  font-size:18px;
   margin-bottom:13px;
   line-height: 26px;
+  flex: 1;
+`
+export const Bold = styled(Paragraph)`
+  font-family: 'Lato-Bold';
 `
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
