@@ -4,7 +4,8 @@ export default {
     primaryLighten: 'rgba(53,16,119, 0.1)',
     overPrimary: '#ffffff',
     background: '#fafafa',
-    text: '#202020'
+    text: '#202020',
+    border: 'rgba(60, 60, 67, 0.29)'
   },
   fontSizes: {
     schoolName: '22px',

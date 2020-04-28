@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 export const MainLayout = styled.View`
   background: ${({ theme }) => theme.colors.background};
+  flex:1 1 100%;
+`
+export const TextContainer = styled.View`
+  flex-direction: row;
+  padding: 0 32px;
+  margin: 20px 0;
+  width:100%;
+  align-items: center;
 `
 export const Paragraph = styled.Text`
   color: ${({ theme }) => theme.colors.text};
