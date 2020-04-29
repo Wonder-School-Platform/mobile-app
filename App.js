@@ -17,7 +17,9 @@ import { MainLayout } from './src/theme/Styles';
 /* import WeeklyMenuSkeleton from './src/containers/WeeklyMenuSkeleton'; */
 /* import Splash from './src/screens/Splash'; */
 /* import Onboarding from './src/screens/Onboarding'; */
-import Settings from './src/screens/Settings';
+/* import Settings from './src/screens/Settings'; */
+/* import UpcomingEvents from './src/screens/UpcomingEvents'; */
+import SchoolInformation from './src/screens/SchoolInformation';
 
 const App: () => React$Node = () => {
   return (
@@ -35,7 +37,9 @@ const App: () => React$Node = () => {
         {/* <WeeklyMenuSkeleton /> */}
         {/* <Splash /> */}
         {/* <Onboarding /> */}
-        <Settings />
+        {/* <Settings /> */}
+        {/* <UpcomingEvents theme={Theme} /> */}
+        <SchoolInformation />
       </MainLayout>
     </ThemeProvider>
   );

@@ -13,6 +13,8 @@ const Post = (props) => {
     featuredImg,
     location,
     title,
+    excerpt,
+    likes,
     theme
   } = props;
   let iconType;
@@ -25,6 +27,9 @@ const Post = (props) => {
       break;
     case 'winter':
       iconType = <Icons.Snow fill={theme.colors.overPrimary} />
+      break;
+    case 'culture':
+      iconType = <Icons.Books fill={theme.colors.overPrimary} />
       break;
     default:
       break;
@@ -45,14 +50,18 @@ const Post = (props) => {
           {category === 'menu' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />}
         </Header>
         <Container>
-          <Paragraph>
-            Our menu is now available including pizza, chilli, enchiladas and more.
-          </Paragraph>
+          {excerpt &&
+            <Paragraph>
+              {excerpt}
+            </Paragraph>
+          }
           <LikesRow>
-            <Icons.Like fill={theme.colors.primary} />
-            <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>
-              22 Likes
-            </Text>
+            <Icons.Like fill={likes ? theme.colors.primary : theme.colors.icon} />
+            {likes &&
+              <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>
+                {likes} Likes
+              </Text>
+            }
           </LikesRow>
         </Container>
       </View>

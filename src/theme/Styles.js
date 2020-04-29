@@ -26,6 +26,7 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-size:18px;
   font-weight: bold;
+  font-family: 'Muli-Bold';
   margin-bottom:5px;
 `
 export const Content = styled.Text`
@@ -83,6 +84,15 @@ export const LikesRow = styled.View`
   flex-direction: row;
   align-items: center;
   margin-top:16px;
+`
+export const Separator = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${({ theme }) => theme.colors.border};
+`
+export const ContainerWithBorder = styled.View`
+  border-bottom-width:1px;
+  border-color: ${({ theme }) => theme.colors.border};
+  border-top-width:1px;
 `
 //Skeleton styles
 export const Circle = styled.View`

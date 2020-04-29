@@ -5,7 +5,8 @@ export default {
     overPrimary: '#ffffff',
     background: '#fafafa',
     text: '#202020',
-    border: 'rgba(60, 60, 67, 0.29)'
+    border: 'rgba(60, 60, 67, 0.29)',
+    icon: '#7E7E7E',
   },
   fontSizes: {
     schoolName: '22px',

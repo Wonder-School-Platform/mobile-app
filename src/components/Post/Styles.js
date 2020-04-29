@@ -7,7 +7,6 @@ export const CardContainer = styled.View`
   justify-content:flex-start;
   flex: 0 0 auto;
   flex-direction: column;
-  overflow: hidden;
   elevation: 2;
   margin-bottom: 16px;
 `
@@ -49,12 +48,14 @@ export const Title = styled.Text`
 `
 export const Date = styled.Text`
   color: ${({ theme }) => theme.colors.text};
+  font-family: 'Lato-Light';
   font-size: ${({ theme }) => theme.fontSizes.titles};
   flex:1 1 auto;
   flex-wrap: wrap;
 `
 export const Location = styled.Text`
   color: ${({ theme }) => theme.colors.text};
+  font-family: 'Lato-Light';
   font-size: ${({ theme }) => theme.fontSizes.titles};
   flex:1 1 auto;
   flex-wrap: wrap;

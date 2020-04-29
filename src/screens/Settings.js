@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as Icons from '../components/Icons';
 import SettingsItem from '../components/SettingsItem';
 import PrimaryButton from '../components/PrimaryButton';
-import { TextContainer, Paragraph } from '../theme/Styles';
+import { TextContainer, Paragraph, Separator } from '../theme/Styles';
 
 const Settings = () => {
   const SettingsData = [
@@ -63,10 +63,6 @@ const ListContainer = styled.View`
   border-bottom-width: 1px;
   border-color: ${({ theme }) => theme.colors.border};
   border-top-width: 1px;
-`
-const Separator = styled.View`
-  border-bottom-width: 1px;
-  border-bottom-color: ${({ theme }) => theme.colors.border};
 `
 const ButtonContainer = styled.View`
   flex: 1;

@@ -7,7 +7,6 @@ import Theme from '../theme/Theme';
 const SettingsItem = (props) => {
   const { children, selected } = props;
   const [isEnabled, setIsEnabled] = useState(selected);
-  console.log(isEnabled)
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
     <ListItem>

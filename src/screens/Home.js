@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  View, SafeAreaView
-} from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import PostList from '../containers/PostList';
 
 const Home = (props) => {

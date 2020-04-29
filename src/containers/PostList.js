@@ -1,5 +1,4 @@
 import React from 'react';
-import { FlatList } from 'react-native';
 import Post from '../components/Post/Post';
 import PostListSkeleton from '../containers/PostListSkeleton';
 
