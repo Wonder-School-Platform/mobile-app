@@ -10,6 +10,7 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
+import MainMenu from './src/components/MainMenu';
 /* import Home from './src/screens/Home'; */
 /* import PostListSkeleton from './src/containers/PostListSkeleton'; */
 /* import FullPost from './src/screens/FullPost'; */
@@ -20,7 +21,7 @@ import { MainLayout } from './src/theme/Styles';
 /* import Settings from './src/screens/Settings'; */
 /* import UpcomingEvents from './src/screens/UpcomingEvents'; */
 /* import SchoolInformation from './src/screens/SchoolInformation'; */
-import Page from './src/screens/Page';
+/* import Page from './src/screens/Page'; */
 
 const App: () => React$Node = () => {
   return (
@@ -41,8 +42,9 @@ const App: () => React$Node = () => {
         {/* <Settings /> */}
         {/* <UpcomingEvents theme={Theme} /> */}
         {/* <SchoolInformation /> */}
-        <Page />
+        {/* <Page /> */}
       </MainLayout>
+      <MainMenu />
     </ThemeProvider>
   );
 };

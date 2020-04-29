@@ -5,10 +5,11 @@ export const MainLayout = styled.View`
   flex:1 1 100%;
 `
 export const Container = styled.View`
+  border: 1px solid red;
   padding: 0 24px;
   margin: 24px 0;
   width:100%;
-  flex:1;
+  flex:1 1 100%;
 `
 export const TextContainer = styled.View`
   flex-direction: row;
