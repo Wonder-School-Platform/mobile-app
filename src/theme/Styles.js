@@ -4,6 +4,12 @@ export const MainLayout = styled.View`
   background: ${({ theme }) => theme.colors.background};
   flex:1 1 100%;
 `
+export const Container = styled.View`
+  padding: 0 24px;
+  margin: 24px 0;
+  width:100%;
+  flex:1;
+`
 export const TextContainer = styled.View`
   flex-direction: row;
   padding: 0 32px;

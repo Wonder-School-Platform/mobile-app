@@ -19,7 +19,8 @@ import { MainLayout } from './src/theme/Styles';
 /* import Onboarding from './src/screens/Onboarding'; */
 /* import Settings from './src/screens/Settings'; */
 /* import UpcomingEvents from './src/screens/UpcomingEvents'; */
-import SchoolInformation from './src/screens/SchoolInformation';
+/* import SchoolInformation from './src/screens/SchoolInformation'; */
+import Page from './src/screens/Page';
 
 const App: () => React$Node = () => {
   return (
@@ -39,7 +40,8 @@ const App: () => React$Node = () => {
         {/* <Onboarding /> */}
         {/* <Settings /> */}
         {/* <UpcomingEvents theme={Theme} /> */}
-        <SchoolInformation />
+        {/* <SchoolInformation /> */}
+        <Page />
       </MainLayout>
     </ThemeProvider>
   );
