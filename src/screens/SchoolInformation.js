@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { Title, Paragraph } from '../theme/Styles';
 import InfoItem from '../components/InfoItem';
 import { Separator, ContainerWithBorder } from '../theme/Styles';
@@ -27,7 +27,7 @@ const SchoolInformation = () => {
   ]
   return (
     <View>
-      <Title style={{ padding: 24 }}>About SCHOOL NAME School</Title>
+      <Title style={styles.title}>About SCHOOL NAME School</Title>
       <ContainerWithBorder>
         <FlatList
           data={data}
@@ -35,7 +35,7 @@ const SchoolInformation = () => {
           ItemSeparatorComponent={ListSeparator}
         />
       </ContainerWithBorder>
-      <Title style={{ padding: 24 }}>Notifications and Feed</Title>
+      <Title style={styles.title}>Notifications and Feed</Title>
       <View
         style={
           {
@@ -58,5 +58,11 @@ const SchoolInformation = () => {
     </View >
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    padding: 24
+  }
+})
 
 export default SchoolInformation;

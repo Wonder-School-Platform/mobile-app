@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import * as Icons from '../components/Icons';
 import PrimaryButton from '../components/PrimaryButton';
 import { Bold, Paragraph } from '../theme/Styles';
+import Theme from '../theme/Theme';
 
 const Onboarding = () => {
   return (
@@ -16,7 +17,7 @@ const Onboarding = () => {
           <IconLayer3>
             <IconLayer2>
               <IconLayer1>
-                <Icons.Home fill='#351077' />
+                <Icons.Home fill={Theme.colors.primary} />
               </IconLayer1>
             </IconLayer2>
           </IconLayer3>
@@ -28,7 +29,7 @@ const Onboarding = () => {
           <IconLayer3>
             <IconLayer2>
               <IconLayer1>
-                <Icons.Menu fill='#351077' />
+                <Icons.Menu fill={Theme.colors.primary} />
               </IconLayer1>
             </IconLayer2>
           </IconLayer3>
@@ -40,7 +41,7 @@ const Onboarding = () => {
           <IconLayer3>
             <IconLayer2>
               <IconLayer1>
-                <Icons.Menu fill='#351077' />
+                <Icons.Menu fill={Theme.colors.primary} />
               </IconLayer1>
             </IconLayer2>
           </IconLayer3>
@@ -50,7 +51,7 @@ const Onboarding = () => {
         </Tip>
       </TipsContainer>
       <PrimaryButton text='Continue'>
-        <Icons.ArrowRight fill={'#ffffff'} />
+        <Icons.ArrowRight fill={Theme.colors.overPrimary} />
       </PrimaryButton>
     </OnboardingLayout>
   );

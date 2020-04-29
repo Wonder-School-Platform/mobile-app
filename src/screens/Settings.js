@@ -5,6 +5,7 @@ import * as Icons from '../components/Icons';
 import SettingsItem from '../components/SettingsItem';
 import PrimaryButton from '../components/PrimaryButton';
 import { TextContainer, Paragraph, Separator } from '../theme/Styles';
+import Theme from '../theme/Theme';
 
 const Settings = () => {
   const SettingsData = [
@@ -48,7 +49,7 @@ const Settings = () => {
         <PrimaryButton
           text='Get Started'
         >
-          <Icons.ArrowRight fill={'#ffffff'} />
+          <Icons.ArrowRight fill={Theme.colors.overPrimary} />
         </PrimaryButton>
       </ButtonContainer>
     </SettingsLayout >

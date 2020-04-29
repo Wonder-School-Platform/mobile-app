@@ -1,12 +1,12 @@
 import React from 'react';
 import * as Icons from '../Icons';
-
 import { Navigation, WeekDay, Day, Date } from './Styles';
+import Theme from '../../theme/Theme';
 
 const WeekNavigation = () => {
   return (
     <Navigation>
-      <Icons.ArrowLeft fill='#ff0000' />
+      <Icons.ArrowLeft fill={Theme.colors.primary} />
       <WeekDay>
         <Day>Mon</Day>
         <Date>13</Date>
@@ -27,7 +27,7 @@ const WeekNavigation = () => {
         <Day>Vie</Day>
         <Date>17</Date>
       </WeekDay>
-      <Icons.ArrowRight fill='#ff0000' />
+      <Icons.ArrowRight fill={Theme.colors.primary} />
     </Navigation>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SafeAreaView, FlatList } from 'react-native';
+import { View, SafeAreaView, FlatList, StyleSheet } from 'react-native';
 import EventsCalendar from '../components/EventsCalendar';
 import styled from 'styled-components';
 import Post from '../components/Post/Post';
@@ -30,7 +30,7 @@ const UpcomingEvents = (props) => {
       <SafeAreaView>
         <EventsLayout>
           <EventsCalendar theme={theme} />
-          <Title style={{ marginBottom: 11 }}>Events on Monday 13</Title>
+          <Title style={styles.title}>Events on Monday 13</Title>
           <FlatList
             data={AllEvents}
             ListEmptyComponent={() => <PostListSkeleton />}
@@ -46,5 +46,10 @@ const UpcomingEvents = (props) => {
 const EventsLayout = styled.View`
   padding: 24px;
 `
+const styles = StyleSheet.create({
+  title: {
+    marginBottom: 11,
+  }
+});
 
 export default UpcomingEvents;

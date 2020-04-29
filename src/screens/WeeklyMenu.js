@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import WeekNavigation from '../components/WeeklyMenu/WeekNavigation';
-import { FeaturedImage, MainImg, Icon, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Note, LikesRow } from '../theme/Styles';
+import { FeaturedImage, MainImg, Icon, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Note, LikesRow, LikesText } from '../theme/Styles';
 import * as Icons from '../components/Icons';
+import Theme from '../theme/Theme';
 
 const WeeklyMenu = () => {
   const Notes = [
@@ -30,7 +31,7 @@ const WeeklyMenu = () => {
           <PostDetails>These are post details</PostDetails>
         </PostHeaderContainer>
       </PostHeader>
-      <View style={{ paddingHorizontal: 24 }}>
+      <View style={styles.paddingH}>
         <Title>Description</Title>
         <Paragraph>Pepperonni pizza with carrots, and caesar salad. Strawberry sauce for dessert.</Paragraph>
         <Title>Allergens information</Title>
@@ -42,14 +43,20 @@ const WeeklyMenu = () => {
           keyExtractor={item => item.id}
         />
         <LikesRow>
-          <Icons.Like fill='#ff0000' />
-          <Text style={{ marginLeft: 8, fontWeight: 'bold' }}>
+          <Icons.Like fill={Theme.colors.primary} />
+          <LikesText>
             22 Likes
-          </Text>
+          </LikesText>
         </LikesRow>
       </View>
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  paddingH: {
+    paddingHorizontal: 24
+  }
+})
 
 export default WeeklyMenu;

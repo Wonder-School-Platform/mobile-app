@@ -6,6 +6,13 @@ import * as Icons from './Icons';
 
 const EventsCalendar = (props) => {
   const { theme } = props;
+  const renderArrow = (direction) => {
+    if (direction === 'left') {
+      return <Icons.ArrowLeft fill={`${theme.colors.primary}`} />
+    } else {
+      return <Icons.ArrowRight fill={`${theme.colors.primary}`} />
+    }
+  };
   return (
     <CalendarContainer>
       <Calendar
@@ -16,12 +23,7 @@ const EventsCalendar = (props) => {
           '2020-04-18': { marked: true, activeOpacity: 0 },
           '2020-04-19': { disabled: true, disableTouchEvent: true }
         }}
-        renderArrow={(left) => (
-          <View style={styles.leftArrow}>
-            <Icons.ArrowLeft fill={`${theme.colors.primary}`} />
-          </View>
-        )}
-        renderArrow={(right) => (<Icons.ArrowRight fill={`${theme.colors.primary}`} />)}
+        renderArrow={renderArrow}
         theme={{
           backgroundColor: 'transparent',
           calendarBackground: 'transparent',
@@ -57,9 +59,4 @@ const CalendarContainer = styled.View`
   elevation: 3;
   margin-bottom: 28px;
 `
-const styles = StyleSheet.create({
-  leftArrow: {
-    transform: [{ scale: 1.5 }]
-  }
-})
 export default EventsCalendar;

@@ -8,7 +8,7 @@ const Page = () => {
       <Title>This is the title</Title>
       <Paragraph>
         this is some cool text
-        </Paragraph>
+      </Paragraph>
     </Container>
   );
 };
