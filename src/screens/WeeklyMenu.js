@@ -22,7 +22,7 @@ const WeeklyMenu = () => {
         <MainImg source={require('../images/pizza-menu.jpg')} />
         <WeekNavigation />
       </FeaturedImage >
-      <PostHeader>
+      <PostHeader style={styles.shadow}>
         <Icon>
           <Icons.Food fill='#ffffff' />
         </Icon>
@@ -56,6 +56,17 @@ const WeeklyMenu = () => {
 const styles = StyleSheet.create({
   paddingH: {
     paddingHorizontal: 24
+  },
+  shadow: {
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
+
+    elevation: 4,
   }
 })
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, SafeAreaView
+  View, SafeAreaView, StyleSheet
 } from 'react-native';
 import { FeaturedImage, MainImg, Icon, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Container } from '../theme/Styles';
 import * as Icons from '../components/Icons';
@@ -12,7 +12,7 @@ const FullPost = () => {
         <FeaturedImage>
           <MainImg source={require('../images/college-football.jpg')} />
         </FeaturedImage>
-        <PostHeader>
+        <PostHeader style={styles.shadow}>
           <Icon>
             <Icons.Football fill='#ffffff' />
           </Icon>
@@ -31,5 +31,19 @@ const FullPost = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
+
+    elevation: 4,
+  }
+})
 
 export default FullPost;

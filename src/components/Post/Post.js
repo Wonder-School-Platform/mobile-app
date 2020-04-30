@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Paragraph } from '../../theme/Styles';
 import { CardContainer, FeaturedImage, Header, Container, Title, Date, Location, LikesRow } from './Styles';
 import { Icon } from '../../theme/Styles';
@@ -35,7 +35,7 @@ const Post = (props) => {
       break;
   }
   return (
-    <CardContainer>
+    <CardContainer style={styles.shadow}>
       {featuredImg && <FeaturedImage source={require('../../images/college-football.jpg')} />}
       <View style={{ paddingHorizontal: 21 }}>
         <Header>
@@ -68,5 +68,20 @@ const Post = (props) => {
     </CardContainer >
   );
 };
+
+const styles = StyleSheet.create({
+  shadow: {
+    margin: 4,
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
+
+    elevation: 3,
+  }
+})
 
 export default Post;

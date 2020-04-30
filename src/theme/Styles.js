@@ -53,7 +53,6 @@ export const Icon = styled.View`
 export const FeaturedImage = styled.View`
   background: ${({ theme }) => theme.colors.primaryLighten};
   flex:0 0 320px;
-  overflow: hidden;
   width: 100%;
 `
 export const MainImg = styled.Image`
@@ -71,7 +70,6 @@ export const PostHeader = styled.View`
   justify-content: space-between;
   margin: 24px;
   padding:8px;
-  elevation:2;
   padding:16px;
   margin-top: -16px;
 `

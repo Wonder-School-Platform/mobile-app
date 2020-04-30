@@ -1,6 +1,8 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import WeekNavigation from '../components/WeeklyMenu/WeekNavigation';
 import { Circle, Bar, SkeletonHeader, BarContainer, FeaturedImage, PostHeader } from '../theme/Styles';
+import { StyleSheet } from 'react-native';
 
 const WeeklyMenuSkeleton = (props) => {
   return (
@@ -8,7 +10,7 @@ const WeeklyMenuSkeleton = (props) => {
       <FeaturedImage>
         <WeekNavigation />
       </FeaturedImage>
-      <PostHeader>
+      <PostHeader style={styles.shadow}>
         <SkeletonHeader opacity={props.opacity} style={{ paddingHorizontal: 10, marginBottom: 0 }}>
           <Circle />
           <BarContainer style={{ height: 48, width: '100%' }}>
@@ -32,5 +34,17 @@ const WeeklyMenuSkeleton = (props) => {
     </>
   );
 };
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
 
+    elevation: 4,
+  }
+})
 export default WeeklyMenuSkeleton;

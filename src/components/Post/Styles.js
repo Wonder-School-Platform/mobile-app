@@ -7,7 +7,6 @@ export const CardContainer = styled.View`
   justify-content:flex-start;
   flex: 0 0 auto;
   flex-direction: column;
-  elevation: 2;
   margin-bottom: 16px;
 `
 export const FeaturedImage = styled.Image`

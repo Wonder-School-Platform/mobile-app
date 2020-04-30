@@ -5,7 +5,7 @@ import Theme from '../../theme/Theme';
 
 const WeekNavigation = () => {
   return (
-    <Navigation>
+    <Navigation style={styles.shadow}>
       <Icons.ArrowLeft fill={Theme.colors.primary} />
       <WeekDay>
         <Day>Mon</Day>
@@ -31,5 +31,17 @@ const WeekNavigation = () => {
     </Navigation>
   );
 };
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
 
+    elevation: 4,
+  }
+})
 export default WeekNavigation;

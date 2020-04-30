@@ -35,7 +35,7 @@ const PostList = (props) => {
 };
 
 const ListContainer = styled.FlatList`
-  padding: 24px;
+  padding: 20px;
 `
 
 export default PostList;

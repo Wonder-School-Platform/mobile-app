@@ -14,7 +14,7 @@ const EventsCalendar = (props) => {
     }
   };
   return (
-    <CalendarContainer>
+    <CalendarContainer style={styles.shadow}>
       <Calendar
         onDayPress={(day) => { console.log('selected day', day) }}
         markedDates={{
@@ -56,7 +56,19 @@ const EventsCalendar = (props) => {
 const CalendarContainer = styled.View`
   background-color: white;
   border-radius: 10px;
-  elevation: 3;
   margin-bottom: 28px;
 `
+const styles = StyleSheet.create({
+  shadow: {
+    shadowColor: 'rgb(138, 138, 138)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.21,
+    shadowRadius: 4,
+
+    elevation: 4,
+  }
+})
 export default EventsCalendar;

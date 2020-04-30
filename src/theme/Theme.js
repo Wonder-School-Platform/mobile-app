@@ -7,6 +7,7 @@ export default {
     text: '#202020',
     border: 'rgba(60, 60, 67, 0.29)',
     icon: '#7E7E7E',
+    shadow: 'rgb(138, 138, 138)',
   },
   fontSizes: {
     schoolName: '22px',

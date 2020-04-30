@@ -8,7 +8,6 @@ export const Navigation = styled.View`
   justify-content: space-between;
   margin: 24px;
   padding:8px;
-  elevation:2;
 `
 export const WeekDay = styled.View`
   background-color: ${props => props.active === true ? ({ theme }) => theme.colors.primaryLighten : 'transparent'};
