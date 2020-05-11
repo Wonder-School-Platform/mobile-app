@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { Paragraph } from '../../theme/Styles';
 import { CardContainer, FeaturedImage, Header, Container, Title, Date, Location, LikesRow } from './Styles';
-import { IconContainer } from '../../theme/Styles';
+import { IconContainer, Icon } from '../../theme/Styles';
 import * as Icons from '../Icons';
 
 const Post = (props) => {
@@ -41,7 +41,7 @@ const Post = (props) => {
       <View style={{ paddingHorizontal: 21 }}>
         <Header>
           <IconContainer>
-            <Image style={{ width: 24, height: 24 }} source={{ uri: myCategory }} />
+            <Icon style={{ width: 24, height: 24 }} source={{ uri: myCategory }} />
           </IconContainer>
           <Container style={{ paddingHorizontal: 0 }}>
             <Title>{title}</Title>

@@ -50,6 +50,10 @@ export const IconContainer = styled.View`
   margin-right:12px;
   width:48px;
 `
+export const Icon = styled.Image`
+  height: 24px;
+  width: 24px;
+`
 export const FeaturedImage = styled.View`
   background: ${({ theme }) => theme.colors.primaryLighten};
   flex:0 0 320px;
