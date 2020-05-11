@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StatusBar,
-  ScrollView,
-  Text,
-  View
-} from 'react-native';
+import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
 
@@ -13,7 +8,7 @@ import Theme from './src/theme/Theme';
 import Header from './src/components/Header';
 import { MainLayout } from './src/theme/Styles';
 import MainMenu from './src/components/MainMenu';
-/* import Home from './src/screens/Home'; */
+import Home from './src/screens/Home';
 /* import PostListSkeleton from './src/containers/PostListSkeleton'; */
 /* import FullPost from './src/screens/FullPost'; */
 /* import WeeklyMenu from './src/screens/WeeklyMenu'; */
@@ -24,7 +19,7 @@ import MainMenu from './src/components/MainMenu';
 /* import UpcomingEvents from './src/screens/UpcomingEvents'; */
 /* import SchoolInformation from './src/screens/SchoolInformation'; */
 /* import Page from './src/screens/Page'; */
-import PostsSearch from './src/components/Post/PostsSearch';
+/* import PostsSearch from './src/components/Post/PostsSearch'; */
 
 const App: () => React$Node = () => {
   return (
@@ -36,7 +31,7 @@ const App: () => React$Node = () => {
           school='Custom School Name'
           currentScreen='generic' />
         <MainLayout>
-          {/* <Home theme={Theme} /> */}
+          <Home theme={Theme} />
           {/* <FullPost theme={Theme} /> */}
           {/* <WeeklyMenu /> */}
           {/* <PostListSkeleton /> */}
@@ -47,9 +42,9 @@ const App: () => React$Node = () => {
           {/* <UpcomingEvents theme={Theme} /> */}
           {/* <SchoolInformation /> */}
           {/* <Page /> */}
-          <PostsSearch />
+          {/* <PostsSearch /> */}
         </MainLayout>
-        <MainMenu />
+        {/* <MainMenu /> */}
       </ThemeProvider>
     </ApolloProvider>
   );

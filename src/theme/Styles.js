@@ -40,7 +40,7 @@ export const Content = styled.Text`
   margin-bottom:13px;
   line-height: 26px;
 `
-export const Icon = styled.View`
+export const IconContainer = styled.View`
   align-self: flex-start;
   align-items: center;
   background: ${({ theme }) => theme.colors.primary};

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   View, SafeAreaView, StyleSheet
 } from 'react-native';
-import { FeaturedImage, MainImg, Icon, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Container } from '../theme/Styles';
+import { FeaturedImage, MainImg, IconContainer, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Container } from '../theme/Styles';
 import * as Icons from '../components/Icons';
 
 const FullPost = () => {
@@ -13,9 +13,9 @@ const FullPost = () => {
           <MainImg source={require('../images/college-football.jpg')} />
         </FeaturedImage>
         <PostHeader style={styles.shadow}>
-          <Icon>
+          <IconContainer>
             <Icons.Football fill='#ffffff' />
-          </Icon>
+          </IconContainer>
           <PostHeaderContainer>
             <Title>News Title</Title>
             <PostDetails>Details 1</PostDetails>

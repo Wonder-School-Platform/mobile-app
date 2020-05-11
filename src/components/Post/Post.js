@@ -1,24 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Image, YellowBox } from 'react-native';
+import moment from 'moment';
+
 import { Paragraph } from '../../theme/Styles';
 import { CardContainer, FeaturedImage, Header, Container, Title, Date, Location, LikesRow } from './Styles';
-import { Icon } from '../../theme/Styles';
-
+import { IconContainer } from '../../theme/Styles';
 import * as Icons from '../Icons';
 
 const Post = (props) => {
   const {
-    category,
+    categories,
     date,
-    featuredImg,
-    location,
+    featuredImage,
     title,
     excerpt,
     likes,
     theme
   } = props;
   let iconType;
-  switch (category) {
+  /* switch (category) {
     case 'menu':
       iconType = <Icons.Food fill={theme.colors.overPrimary} />
       break;
@@ -33,28 +33,29 @@ const Post = (props) => {
       break;
     default:
       break;
-  }
+  } */
+  const myCategory = categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl;
   return (
     <CardContainer style={styles.shadow}>
-      {featuredImg && <FeaturedImage source={require('../../images/college-football.jpg')} />}
+      {featuredImage && <FeaturedImage source={{ uri: featuredImage.sourceUrl }} />}
       <View style={{ paddingHorizontal: 21 }}>
         <Header>
-          <Icon>
-            {iconType}
-          </Icon>
+          <IconContainer>
+            <Image style={{ width: 24, height: 24 }} source={{ uri: myCategory }} />
+          </IconContainer>
           <Container style={{ paddingHorizontal: 0 }}>
             <Title>{title}</Title>
-            <Date>{date}</Date>
-            <Location>{location}</Location>
+            <Date>{moment(date).format('MMM DD, YYYY')}</Date>
+            <Location>Location missing</Location>
           </Container>
-          {category === 'menu' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />}
+          {/* {category === 'menu' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />} */}
         </Header>
         <Container>
-          {excerpt &&
+          {/* {excerpt &&
             <Paragraph>
               {excerpt}
             </Paragraph>
-          }
+          } */}
           <LikesRow>
             <Icons.Like fill={likes ? theme.colors.primary : theme.colors.icon} />
             {likes &&

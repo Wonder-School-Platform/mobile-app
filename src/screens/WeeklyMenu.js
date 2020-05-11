@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import WeekNavigation from '../components/WeeklyMenu/WeekNavigation';
-import { FeaturedImage, MainImg, Icon, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Note, LikesRow, LikesText } from '../theme/Styles';
+import { FeaturedImage, MainImg, IconContainer, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Note, LikesRow, LikesText } from '../theme/Styles';
 import * as Icons from '../components/Icons';
 import Theme from '../theme/Theme';
 
@@ -23,9 +23,9 @@ const WeeklyMenu = () => {
         <WeekNavigation />
       </FeaturedImage >
       <PostHeader style={styles.shadow}>
-        <Icon>
+        <IconContainer>
           <Icons.Food fill='#ffffff' />
-        </Icon>
+        </IconContainer>
         <PostHeaderContainer>
           <Title>This is the menu</Title>
           <PostDetails>These are post details</PostDetails>

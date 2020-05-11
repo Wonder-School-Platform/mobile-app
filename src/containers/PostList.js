@@ -4,32 +4,13 @@ import PostListSkeleton from '../containers/PostListSkeleton';
 import styled from 'styled-components';
 
 const PostList = (props) => {
-  const { theme } = props;
-  const AllPosts = [
-    {
-      title: 'This is the post title',
-      date: 'Monday 13th, 7:00 p.m.',
-      location: 'School Football field',
-      excerpt: 'Our menu is now available including pizza, chilli, enchiladas and more.',
-      category: 'menu',
-      key: '1'
-    },
-    {
-      title: 'This is the post title',
-      date: 'Monday 13th, 7:00 p.m.',
-      location: 'School Football field',
-      excerpt: 'Our menu is now available including pizza, chilli, enchiladas and more.',
-      category: 'football',
-      featuredImg: 'yes',
-      key: '2'
-    },
-  ]
+  const { theme, data } = props;
   return (
     <ListContainer
-      data={AllPosts}
+      data={data.edges}
       ListEmptyComponent={() => <PostListSkeleton />}
-      renderItem={({ item }) => <Post theme={theme} {...item} />}
-      keyExtractor={item => item.key}
+      renderItem={({ item }) => <Post theme={theme} {...item.node} />}
+      keyExtractor={item => item.node.databaseId.toString()}
     />
   );
 };

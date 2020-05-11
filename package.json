@@ -10,17 +10,24 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "add": "^2.0.6",
     "apollo-boost": "^0.4.7",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",
     "moment": "^2.25.3",
+    "or": "^0.2.0",
     "react": "16.11.0",
     "react-apollo": "^3.1.5",
     "react-native": "0.62.1",
     "react-native-calendars": "^1.265.0",
+    "react-native-render-html": "^4.2.0",
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
-    "styled-components": "^5.1.0"
+    "react-native-webview": "^9.4.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "styled-components": "^5.1.0",
+    "yarn": "^1.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
