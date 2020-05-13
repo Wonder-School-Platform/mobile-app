@@ -34,15 +34,17 @@ const Post = (props) => {
     default:
       break;
   } */
-  const myCategory = categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl;
+  //const myCategory = categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl;
   return (
     <CardContainer style={styles.shadow}>
       {featuredImage && <FeaturedImage source={{ uri: featuredImage.sourceUrl }} />}
       <View style={{ paddingHorizontal: 21 }}>
         <Header>
-          <IconContainer>
-            <Icon style={{ width: 24, height: 24 }} source={{ uri: myCategory }} />
-          </IconContainer>
+          {categories.edges.length > 0 &&
+            <IconContainer>
+              <Icon style={{ width: 24, height: 24 }} source={{ uri: categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
+            </IconContainer>
+          }
           <Container style={{ paddingHorizontal: 0 }}>
             <Title>{title}</Title>
             <Date>{moment(date).format('MMM DD, YYYY')}</Date>
