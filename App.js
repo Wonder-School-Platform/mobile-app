@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from 'react-apollo';
@@ -20,8 +20,12 @@ import Home from './src/screens/Home';
 /* import SchoolInformation from './src/screens/SchoolInformation'; */
 /* import Page from './src/screens/Page'; */
 /* import PostsSearch from './src/components/Post/PostsSearch'; */
+import APi from './src/Utils/EventsAPI';
 
 const App: () => React$Node = () => {
+  useEffect(() => {
+    APi.getEvents()
+  })
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={Theme}>
@@ -44,7 +48,7 @@ const App: () => React$Node = () => {
           {/* <Page /> */}
           {/* <PostsSearch /> */}
         </MainLayout>
-        {/* <MainMenu /> */}
+        <MainMenu />
       </ThemeProvider>
     </ApolloProvider>
   );

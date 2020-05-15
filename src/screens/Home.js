@@ -9,7 +9,7 @@ import DataError from '../components/DataError';
 
 const ALL_POSTS_QUERY = gql`
   query ALL_POSTS_QUERY( $cursor: String) {
-    posts(first: 12, after: $cursor) {
+    posts(first: 12, where: {status: PUBLISH}, after: $cursor) {
       edges {
         node {
           databaseId

@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, YellowBox } from 'react-native';
 import moment from 'moment';
+import HTML from 'react-native-render-html';
 
-import { Paragraph } from '../../theme/Styles';
 import { CardContainer, FeaturedImage, Header, Container, Title, Date, Location, LikesRow } from './Styles';
 import { IconContainer, Icon } from '../../theme/Styles';
 import * as Icons from '../Icons';
@@ -17,24 +17,6 @@ const Post = (props) => {
     likes,
     theme
   } = props;
-  let iconType;
-  /* switch (category) {
-    case 'menu':
-      iconType = <Icons.Food fill={theme.colors.overPrimary} />
-      break;
-    case 'football':
-      iconType = <Icons.Football fill={theme.colors.overPrimary} />
-      break;
-    case 'winter':
-      iconType = <Icons.Snow fill={theme.colors.overPrimary} />
-      break;
-    case 'culture':
-      iconType = <Icons.Books fill={theme.colors.overPrimary} />
-      break;
-    default:
-      break;
-  } */
-  //const myCategory = categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl;
   return (
     <CardContainer style={styles.shadow}>
       {featuredImage && <FeaturedImage source={{ uri: featuredImage.sourceUrl }} />}
@@ -50,14 +32,14 @@ const Post = (props) => {
             <Date>{moment(date).format('MMM DD, YYYY')}</Date>
             <Location>Location missing</Location>
           </Container>
-          {/* {category === 'menu' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />} */}
+          {categories.edges.length > 0 &&
+            categories.edges[0].node.slug === 'food' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />
+          }
         </Header>
         <Container>
-          {/* {excerpt &&
-            <Paragraph>
-              {excerpt}
-            </Paragraph>
-          } */}
+          {excerpt &&
+            <HTML html={excerpt} baseFontStyle={{ fontFamily: 'Lato-Regular' }} {...htmlStyles} />
+          }
           <LikesRow>
             <Icons.Like fill={likes ? theme.colors.primary : theme.colors.icon} />
             {likes &&
@@ -86,5 +68,15 @@ const styles = StyleSheet.create({
     elevation: 3,
   }
 })
+
+//HTML Component Styles
+const htmlStyles = {
+  tagsStyles: {
+    p: {
+      fontSize: 18,
+      marginBottom: 16,
+    }
+  }
+}
 
 export default Post;

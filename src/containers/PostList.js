@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import Post from '../components/Post/Post';
+import PostListEnd from '../components/Post/PostListEnd';
 import PostListSkeleton from '../containers/PostListSkeleton';
 import styled from 'styled-components';
 
@@ -35,6 +36,7 @@ const PostList = (props) => {
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.5}
         contentContainerStyle={styles.listContainer}
+        ListFooterComponent={() => <PostListEnd>You are up to date!</PostListEnd>}
       />
     </PostListContainer>
   );
@@ -45,11 +47,10 @@ const List = styled.FlatList`
 `
 const PostListContainer = styled.View`
   flex: 1;
-  border: 1px solid red;
 `
 const styles = StyleSheet.create({
   listContainer: {
-    paddingBottom: 48
+    paddingBottom: 24
   }
 });
 
