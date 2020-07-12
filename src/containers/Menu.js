@@ -133,7 +133,7 @@ const TheMenu = ({ data, theme }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      /*<Dropdown
+      {/* <Dropdown
         label="Select Different School to check the menu"
         data={dataSchools}
         style={{color:'white'}}
@@ -145,7 +145,7 @@ const TheMenu = ({ data, theme }) => {
         textColor={'rgba(255, 255, 255, 1)'}
         overlayStyle={styles.dropdownoverlayStyle}
         rippleInsets={{top: 20}}
-        />*/
+        /> */}
         
       <ScrollView style={styles.wrapper}>
         <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
@@ -159,6 +159,7 @@ const TheMenu = ({ data, theme }) => {
             calendarDate={activeDate}
             handleDateToShow={handleDateToShow}
             handleIsWeek={handleIsWeek}
+            theme={theme}
           />
           
         </FeaturedImage >

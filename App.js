@@ -292,6 +292,7 @@ export default function App(props) {
                         backgroundColor: schoolTheme.colors.primary
                       },
                       headerTintColor: schoolTheme.colors.card,
+                      headerLeft: null,
                     }}
                   >
                     {props => 

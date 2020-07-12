@@ -9,7 +9,7 @@ import ScalableText from 'react-native-text';
 const WeekDayWidth = (Dimensions.get('window').width / 7) - 10;
 const WeekDayWidthPx = WeekDayWidth + 'px';
 
-const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWeek }) => {
+const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWeek, theme }) => {
 
   const week = Object.entries(weekDates).map((key) => {
     const day = key[0];
@@ -39,13 +39,13 @@ const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWee
         <TouchableWithoutFeedback
           onPress={() => handleIsWeek('left')}
         >
-        <Entypo name="chevron-small-left" size={24} color={Theme.colors.primary} />
+        <Entypo name="chevron-small-left" size={24} color={theme.colors.primary} />
         </TouchableWithoutFeedback>
         {week}
         <TouchableWithoutFeedback
           onPress={() => handleIsWeek('right')}
         >
-        <Entypo name="chevron-small-right" size={24} color={Theme.colors.primary} />
+        <Entypo name="chevron-small-right" size={24} color={theme.colors.primary} />
         </TouchableWithoutFeedback>
       </Navigation>
     </SafeAreaView>

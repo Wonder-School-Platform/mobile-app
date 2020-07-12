@@ -49,16 +49,11 @@ const WeeklyMenu = ({theme}) => {
         if (!data.tags.edges.length) return <Text>There are no posts.</Text>;
 
         return (
-          <NoEvents>The menu is going to be available soon.</NoEvents>
+          <TheMenu data={data} theme={theme} />
         );
       }}
     </Query>
   );
 };
-
-/* return (
-    <TheMenu data={data} theme={theme} />
-  );
-*/
 
 export default WeeklyMenu;
