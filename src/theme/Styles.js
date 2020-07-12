@@ -141,3 +141,15 @@ export const BarContainer = styled.View`
   flex-direction: column;
   opacity: ${props => (props.opacity ? props.opacity : '1')};
 `
+export const NutritionalFacts = styled.View`
+  border: 1px solid rgba(0,0,0,0.3);
+  padding: 10px 15px;
+  border-radius: 10px;
+`
+export const NutritionalFactsRow = styled.View`
+  borderBottomColor: #ccc;
+  border-bottom-width: 1px;
+  display: flex;
+  flex-direction: row;
+  padding: 2px 0;
+` 

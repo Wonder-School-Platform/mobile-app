@@ -12,7 +12,9 @@ import {
   PostHeader,
   PostHeaderContainer,
   Title,
-  Container
+  Container,
+  NutritionalFacts,
+  NutritionalFactsRow,
 } from '../theme/Styles';
 import { Date } from '../components/Post/Styles';
 import PrimaryButton from '../components/PrimaryButton';
@@ -200,6 +202,35 @@ const TheMenu = ({ data, theme }) => {
             onPress={handleMeal}
             text={isMeal === 'Breakfast' ? "See Lunch Menu" : "See Breakfast Menu"}
           /> */}
+
+          <NutritionalFacts>
+            <Title>Nutritional Facts:</Title>
+            <Text>Portion Size 1 cup</Text>
+            <View style={styles.NF_Big_separator}></View>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Calories</Text><Text>230 kcal</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Fat</Text><Text>25.4 g</Text>
+            </NutritionalFactsRow>
+
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Sodium</Text><Text>1034 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Carbs</Text><Text>56.3 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Fiber</Text><Text>4 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Protein</Text><Text>29 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Allergens</Text><Text>wheat, milk</Text>
+            </NutritionalFactsRow>
+            <View style={styles.NF_Big_separator}></View>
+          </NutritionalFacts>
         </Container>
       </ScrollView>
     </SafeAreaView>
@@ -248,7 +279,18 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 16,
   },
-
+  row: {
+    flexDirection: 'row',
+  },
+  subtitle: {
+    fontFamily: 'Lato-Bold',
+    marginRight: 5,
+  },
+  NF_Big_separator: {
+    backgroundColor: 'black',
+    height: 5,
+    marginVertical: 3,
+  }
 });
 
 //HTML Component Styles
