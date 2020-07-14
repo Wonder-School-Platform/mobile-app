@@ -25,7 +25,7 @@ import moment from 'moment';
 import ScalableText from 'react-native-text';
 import { scaleText } from 'react-native-text';
 
-//import { Dropdown } from 'react-native-material-dropdown';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const entities = new Entities();
 
@@ -121,33 +121,38 @@ const TheMenu = ({ data, theme }) => {
 
   let dataSchools = [
     {
-      value: 'Cherokee Elementary'
+      value:'Cherokee Elementary',
+      label: 'Cherokee Elementary'
     },
     {
-      value: 'Helen Paul Learning Center'
+      value: 'Helen Paul Learning Center',
+      label: 'Helen Paul Learning Center'
     },
     {
-      value: 'High School'
+      value:'High School',
+      label: 'High School'
     },
     {
-      value: 'Wells Middle School'
+      value: 'Wells Middle School',
+      label: 'Wells Middle School'
     }]
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* <Dropdown
-        label="Select Different School to check the menu"
-        data={dataSchools}
-        style={{color:'white'}}
-        value={'Wells Middle School'}
-        containerStyle={{marginHorizontal: 10, marginBottom: 0,}}
-        pickerStyle={styles.dropdownPicker}
-        itemTextStyle={styles.dropdownitemTextStyle}
-        baseColor={'rgba(255, 255, 255, 0.8)'}
-        textColor={'rgba(255, 255, 255, 1)'}
-        overlayStyle={styles.dropdownoverlayStyle}
-        rippleInsets={{top: 20}}
-        /> */}
+      
+        <DropDownPicker
+        items={dataSchools}
+        containerStyle={{height: 50}}
+        style={[styles.dropdown, {backgroundColor: theme.colors.primary,}]}
+        itemStyle={{
+            justifyContent: 'flex-start'
+        }}
+        dropDownStyle={{backgroundColor: '#fafafa'}}
+        itemStyle={{color: 'yellow'}}
+        onChangeItem={{}}
+        placeholder='Filter by School'
+    />
+      
         
       <ScrollView style={styles.wrapper}>
         <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
@@ -242,18 +247,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#00421c',
     flex: 1,
   },
-  dropdownPicker: {
-    backgroundColor: '#00421c',
-    top: '50%',
-    display: 'flex',
-    position: 'relative',
-
-  },
-  dropdownitemTextStyle:{
+  dropdown: {
+    borderWidth: 0,
     color: 'white'
-  },
-  dropdownoverlayStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   paddingH: {
     paddingHorizontal: 24

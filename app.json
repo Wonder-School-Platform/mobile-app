@@ -2,13 +2,12 @@
   "expo": {
     "name": "Wonder Catoosa Schools App",
     "slug": "wonder-catoosa-school-app",
-    "version": "1.0.4",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ccc"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,7 +17,8 @@
     ],
     "ios": {
       "bundleIdentifier": "com.wonder.wondercatoosachool",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
