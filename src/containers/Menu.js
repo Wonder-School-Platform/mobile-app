@@ -12,7 +12,9 @@ import {
   PostHeader,
   PostHeaderContainer,
   Title,
-  Container
+  Container,
+  NutritionalFacts,
+  NutritionalFactsRow,
 } from '../theme/Styles';
 import { Date } from '../components/Post/Styles';
 import PrimaryButton from '../components/PrimaryButton';
@@ -23,7 +25,7 @@ import moment from 'moment';
 import ScalableText from 'react-native-text';
 import { scaleText } from 'react-native-text';
 
-//import { Dropdown } from 'react-native-material-dropdown';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const entities = new Entities();
 
@@ -119,33 +121,37 @@ const TheMenu = ({ data, theme }) => {
 
   let dataSchools = [
     {
-      value: 'Cherokee Elementary'
+      value:'Cherokee Elementary',
+      label: 'Cherokee Elementary'
     },
     {
-      value: 'Helen Paul Learning Center'
+      value: 'Helen Paul Learning Center',
+      label: 'Helen Paul Learning Center'
     },
     {
-      value: 'High School'
+      value:'High School',
+      label: 'High School'
     },
     {
-      value: 'Wells Middle School'
+      value: 'Wells Middle School',
+      label: 'Wells Middle School'
     }]
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      {/* <Dropdown
-        label="Select Different School to check the menu"
-        data={dataSchools}
-        style={{color:'white'}}
-        value={'Wells Middle School'}
-        containerStyle={{marginHorizontal: 10, marginBottom: 0,}}
-        pickerStyle={styles.dropdownPicker}
-        itemTextStyle={styles.dropdownitemTextStyle}
-        baseColor={'rgba(255, 255, 255, 0.8)'}
-        textColor={'rgba(255, 255, 255, 1)'}
-        overlayStyle={styles.dropdownoverlayStyle}
-        rippleInsets={{top: 20}}
-        /> */}
+      
+        <DropDownPicker
+        items={dataSchools}
+        containerStyle={{height: 50}}
+        style={[styles.dropdown, {backgroundColor: theme.colors.primary,}]}
+        itemStyle={{
+            justifyContent: 'flex-start',
+        }}
+        dropDownStyle={{backgroundColor: '#fafafa'}}
+        placeholder='Filter by School'
+        placeholderStyle={{color:'white'}}
+    />
+      
         
       <ScrollView style={styles.wrapper}>
         <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
@@ -200,6 +206,35 @@ const TheMenu = ({ data, theme }) => {
             onPress={handleMeal}
             text={isMeal === 'Breakfast' ? "See Lunch Menu" : "See Breakfast Menu"}
           /> */}
+
+          <NutritionalFacts>
+            <Title>Nutritional Facts:</Title>
+            <Text>Portion Size 1 cup</Text>
+            <View style={styles.NF_Big_separator}></View>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Calories</Text><Text>230 kcal</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Fat</Text><Text>25.4 g</Text>
+            </NutritionalFactsRow>
+
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Sodium</Text><Text>1034 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Carbs</Text><Text>56.3 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Fiber</Text><Text>4 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Protein</Text><Text>29 g</Text>
+            </NutritionalFactsRow>
+            <NutritionalFactsRow>
+              <Text style={styles.subtitle}>Allergens</Text><Text>wheat, milk</Text>
+            </NutritionalFactsRow>
+            <View style={styles.NF_Big_separator}></View>
+          </NutritionalFacts>
         </Container>
       </ScrollView>
     </SafeAreaView>
@@ -211,18 +246,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#00421c',
     flex: 1,
   },
-  dropdownPicker: {
-    backgroundColor: '#00421c',
-    top: '50%',
-    display: 'flex',
-    position: 'relative',
-
-  },
-  dropdownitemTextStyle:{
+  dropdown: {
+    borderWidth: 0,
     color: 'white'
-  },
-  dropdownoverlayStyle: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)'
   },
   paddingH: {
     paddingHorizontal: 24
@@ -248,7 +274,18 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 16,
   },
-
+  row: {
+    flexDirection: 'row',
+  },
+  subtitle: {
+    fontFamily: 'Lato-Bold',
+    marginRight: 5,
+  },
+  NF_Big_separator: {
+    backgroundColor: 'black',
+    height: 5,
+    marginVertical: 3,
+  }
 });
 
 //HTML Component Styles
