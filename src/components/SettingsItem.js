@@ -1,37 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { TouchableWithoutFeedback } from 'react-native';
 import { Switch } from 'react-native';
 import styled from 'styled-components';
 import { Paragraph } from '../theme/Styles';
-import Theme from '../theme/Theme';
+import ScalableText from 'react-native-text';
+import { Entypo } from '@expo/vector-icons';
 
 const SettingsItem = (props) => {
-  const { children, selected } = props;
-  const [isEnabled, setIsEnabled] = useState(selected);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const {
+    active,
+    children,
+    databaseId,
+    handlePreferences,
+    handlePress,
+    handleSettings,
+    pageName,
+    theme,
+    type } = props;
+
   return (
-    <ListItem>
-      <ListText>
-        {children}
-      </ListText>
-      <Switch
-        trackColor={{ false: "#7e7e7e", true: `${Theme.colors.primary}` }}
-        thumbColor="#ffffff"
-        ios_backgroundColor="#7e7e7e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
-    </ListItem>
+    <TouchableWithoutFeedback
+      onPress={
+        type === 'settings' ? null
+          :
+          type === 'preferences' ?
+          () => {
+            handlePreferences(pageName)
+          }
+          :
+          () => {
+            handlePress(databaseId)
+          }
+      }>
+      <ListItem>
+        <ScalableText style={listText}>
+          {children}
+        </ScalableText>
+        {type === 'settings' ?
+          <Switch
+            trackColor={{ false: "#7e7e7e", true: `${theme.colors.primaryLighter}` }}
+            thumbColor="#ffffff"
+            ios_backgroundColor="#7e7e7e"
+            onValueChange={handleSettings}
+            value={active}
+          />
+          :
+          <Entypo name={'chevron-small-right'} size={24} color={theme.colors.primary} />
+        }
+      </ListItem>
+    </TouchableWithoutFeedback>
   );
 };
 
 const ListItem = styled.View`
   background-color: #ffffff;
-  padding:16px 24px;
+  padding:15px 24px;
   flex-flow: row;
   justify-content: space-between;
   align-items: center;
 `
-const ListText = styled(Paragraph)`
-  margin-bottom: 0;
-`
+const listText = {
+  fontSize: 18,
+  lineHeight: 18 * 1.33,
+  fontFamily: 'Lato-Light',
+  color: '#202020',
+}
 export default SettingsItem;

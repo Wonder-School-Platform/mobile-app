@@ -35,6 +35,13 @@ export const Title = styled.Text`
   font-family: 'Muli-Bold';
   margin-bottom:5px;
 `
+export const ButtonTitle = styled.Button`
+  color: ${({ theme }) => theme.colors.primary};
+  font-size:18px;
+  font-weight: bold;
+  font-family: 'Muli-Bold';
+  margin-bottom:5px;
+`
 export const Content = styled.Text`
   font-size:18px;
   margin-bottom:13px;
@@ -44,19 +51,19 @@ export const IconContainer = styled.View`
   align-self: flex-start;
   align-items: center;
   background: ${({ theme }) => theme.colors.primary};
-  border-radius:24px;
+  border-radius:50px;
   justify-content: center;
-  height:48px;
+  height:${props => props.height || "48px"};
   margin-right:12px;
-  width:48px;
+  width: ${props => props.width || "48px"};
 `
 export const Icon = styled.Image`
   height: 24px;
   width: 24px;
 `
 export const FeaturedImage = styled.View`
-  background: ${({ theme }) => theme.colors.primaryLighten};
-  flex:0 0 320px;
+  background: ${props => props.theme.colors.primaryLighten || 'rgb(235, 235, 235)'};
+  flex: ${props => props.flexHeight || "0 0 120px"};
   width: 100%;
 `
 export const MainImg = styled.Image`
@@ -72,7 +79,7 @@ export const PostHeader = styled.View`
   border-radius:10px;
   flex-direction: row;
   justify-content: space-between;
-  margin: 24px;
+  margin: 24px 24px 0 24px;
   padding:8px;
   padding:16px;
   margin-top: -16px;

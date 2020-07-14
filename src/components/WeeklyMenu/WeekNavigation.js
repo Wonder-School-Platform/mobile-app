@@ -1,34 +1,54 @@
 import React from 'react';
-import * as Icons from '../Icons';
+import { StyleSheet, TouchableWithoutFeedback, SafeAreaView, Dimensions } from 'react-native';
+import moment from 'moment';
 import { Navigation, WeekDay, Day, Date } from './Styles';
 import Theme from '../../theme/Theme';
+import { Entypo } from '@expo/vector-icons'; 
+import ScalableText from 'react-native-text';
 
-const WeekNavigation = () => {
+const WeekDayWidth = (Dimensions.get('window').width / 7) - 10;
+const WeekDayWidthPx = WeekDayWidth + 'px';
+
+const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWeek, theme }) => {
+
+  const week = Object.entries(weekDates).map((key) => {
+    const day = key[0];
+    const date = key[1];
+
+    return (
+      <TouchableWithoutFeedback
+        key={key[0]}
+        dataDay={key[0]}
+        onPress={() => {
+          handleDateToShow(key[0], key[1])
+        }}
+        style={{ borderWidth: 1, background: 'red' }}
+      >
+        <WeekDay active={calendarDate} width={WeekDayWidthPx} height={WeekDayWidthPx}>
+          <ScalableText styles={styles.day}>{day}</ScalableText>
+          <Date active={calendarDate}><ScalableText style={styles.date}>{date}</ScalableText></Date>
+          
+        </WeekDay>
+      </TouchableWithoutFeedback>
+    )
+  })
+
   return (
-    <Navigation style={styles.shadow}>
-      <Icons.ArrowLeft fill={Theme.colors.primary} />
-      <WeekDay>
-        <Day>Mon</Day>
-        <Date>13</Date>
-      </WeekDay>
-      <WeekDay active={true}>
-        <Day>Tue</Day>
-        <Date active={true}>14</Date>
-      </WeekDay>
-      <WeekDay>
-        <Day>Mie</Day>
-        <Date>15</Date>
-      </WeekDay>
-      <WeekDay>
-        <Day>Jue</Day>
-        <Date>16</Date>
-      </WeekDay>
-      <WeekDay>
-        <Day>Vie</Day>
-        <Date>17</Date>
-      </WeekDay>
-      <Icons.ArrowRight fill={Theme.colors.primary} />
-    </Navigation>
+    <SafeAreaView style={{flex: 1}}>
+      <Navigation style={styles.shadow}>
+        <TouchableWithoutFeedback
+          onPress={() => handleIsWeek('left')}
+        >
+        <Entypo name="chevron-small-left" size={24} color={theme.colors.primary} />
+        </TouchableWithoutFeedback>
+        {week}
+        <TouchableWithoutFeedback
+          onPress={() => handleIsWeek('right')}
+        >
+        <Entypo name="chevron-small-right" size={24} color={theme.colors.primary} />
+        </TouchableWithoutFeedback>
+      </Navigation>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -42,6 +62,13 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
 
     elevation: 4,
+  }, 
+  day: {
+    fontSize: 12,
+  },
+  date: {
+    fontSize: 14,
   }
 })
+
 export default WeekNavigation;

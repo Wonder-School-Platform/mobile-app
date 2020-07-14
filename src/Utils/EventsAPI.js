@@ -4,7 +4,6 @@ class Api {
   async getEvents() {
     const query = await fetch(`${BASE_API}`);
     const events = await query.json();
-    console.log(events);
     return events
   }
 

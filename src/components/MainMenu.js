@@ -1,15 +1,19 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import * as Icons from './Icons';
 import styled from 'styled-components';
+import {Ionicons} from '@expo/vector-icons';
 
 const MainMenu = () => {
   return (
     <MainNavigation style={styles.shadow}>
-      <Icons.Home fill={'#7e7e7e'} />
+      <Ionicons name={'md-home-outline'} size={25} color={'#7e7e7e'} />
+      <Ionicons name={'md-room_service'} size={25} color={'#7e7e7e'} />
+      <Ionicons name={'md-insert_invitation'} size={25} color={'#7e7e7e'} />
+      <Ionicons name={'md-more'} size={25} color={'#7e7e7e'} />
+      /*<Icons.Home fill={'#7e7e7e'} />
       <Icons.Menu fill={'#7e7e7e'} />
       <Icons.Calendar fill={'#7e7e7e'} />
-      <Icons.More fill={'#7e7e7e'} />
+      <Icons.More fill={'#7e7e7e'} />*/
     </MainNavigation>
   );
 };

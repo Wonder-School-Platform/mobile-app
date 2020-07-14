@@ -1,4 +1,4 @@
-export ArrowLeft from '../images/icons/arrow-left.svg';
+/*export ArrowLeft from '../images/icons/arrow-left.svg';
 export ArrowRight from '../images/icons/arrow-right.svg';
 export Art from '../images/icons/art.svg';
 export Baseball from '../images/icons/baseball.svg';
@@ -29,4 +29,4 @@ export Snow from '../images/icons/snow.svg';
 export Sunny from '../images/icons/sunny.svg';
 export Videogames from '../images/icons/videogames.svg';
 export Volleyball from '../images/icons/volleyball.svg';
-export Welcome from '../images/icons/welcome.svg';
+export Welcome from '../images/icons/welcome.svg';*/

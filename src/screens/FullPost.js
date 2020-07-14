@@ -1,34 +1,103 @@
 import React from 'react';
 import {
-  View, SafeAreaView, StyleSheet
+  Dimensions,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Image,
+  SafeAreaView,
+  View
 } from 'react-native';
-import { FeaturedImage, MainImg, IconContainer, PostHeader, PostHeaderContainer, PostDetails, Title, Paragraph, Container } from '../theme/Styles';
-import * as Icons from '../components/Icons';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import moment from 'moment';
+import HTML from 'react-native-render-html';
+import ScalableText from 'react-native-text';
+import {Linking} from 'expo';
+import { Icon, IconContainer, PostHeader, PostHeaderContainer, Title, Container } from '../theme/Styles';
+import { Date } from '../components/Post/Styles';
+import Theme from '../theme/Theme';
+import PostSkeleton from '../components/Post/PostSkeleton';
+import DataError from '../components/DataError';
 
-const FullPost = () => {
+const POST_QUERY = gql`
+  query POST_QUERY($postId: Int) {
+    postBy(postId: $postId) {
+      databaseId
+      title
+      date
+      content
+      featuredImage {
+        id
+        sourceUrl
+      }
+      categories {
+        edges {
+          node {
+            categoryIcon {
+              categoryIcon {
+                sourceUrl(size: MEDIUM)
+              }
+            }
+            slug
+          }
+        }
+      }
+    }
+  }
+`
+
+const FullPost = ({ route, theme }) => {
+  const postId = route.params.postId;
   return (
-    <View>
-      <SafeAreaView>
-        <FeaturedImage>
-          <MainImg source={require('../images/college-football.jpg')} />
-        </FeaturedImage>
-        <PostHeader style={styles.shadow}>
-          <IconContainer>
-            <Icons.Football fill='#ffffff' />
-          </IconContainer>
-          <PostHeaderContainer>
-            <Title>News Title</Title>
-            <PostDetails>Details 1</PostDetails>
-            <PostDetails>Details 2</PostDetails>
-          </PostHeaderContainer>
-        </PostHeader>
-        <Container>
-          <Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sit amet purus gravida quis blandit. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Sapien faucibus et molestie ac feugiat. Maecenas volutpat blandit aliquam etiam erat velit scelerisque. Aliquam ultrices sagittis orci a scelerisque. Accumsan lacus vel facilisis volutpat est velit egestas dui. Pretium lectus quam id leo in vitae turpis. </Paragraph>
-          <Title>Subtitle</Title>
-          <Paragraph>Sit amet purus gravida quis blandit. Pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Sapien faucibus et molestie ac feugiat. Maecenas volutpat blandit aliquam etiam erat velit scelerisque. Aliquam ultrices sagittis orci a scelerisque. Accumsan lacus vel facilisis volutpat est velit egestas dui. Pretium lectus quam id leo in vitae turpis. </Paragraph>
-        </Container>
-      </SafeAreaView>
-    </View>
+    <Query query={POST_QUERY} variables={{ postId }}>
+      {({ loading, error, data }) => {
+        if (loading) return <PostSkeleton />;
+        if (error) return <DataError />;
+        if (!data) return <Text>There is no data.</Text>
+
+        const {
+          categories,
+          date,
+          featuredImage,
+          title,
+          content,
+        } = data.postBy;
+
+        //Clean shorcodes from conten
+        const regex = /\[[^\]]+\]/g;
+        const cleanedContent = content.toString().replace(regex, '');
+
+        return (
+          <SafeAreaView>
+            <ScrollView>
+              {featuredImage && <Image source={{ uri: featuredImage.sourceUrl }} style={styles.mainImage} />}
+              <View style={{ paddingTop: featuredImage ? 0 : 48}}>
+                <PostHeader style={styles.shadow}>
+                  {categories.edges.length > 0 &&
+                    <IconContainer>
+                      <Icon style={{ width: 24, height: 24 }} source={{ uri: categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
+                    </IconContainer>
+                  }
+                  <PostHeaderContainer>
+                    <Title>{title}</Title>
+                    <Date>{moment(date).format('MMM DD, YYYY')}</Date>
+                  </PostHeaderContainer>
+                </PostHeader>
+              </View>
+              <Container>
+                <HTML
+                  html={cleanedContent}
+                  baseFontStyle={{ fontFamily: 'Lato-Regular' }}
+                  imagesMaxWidth={Dimensions.get('window').width - 48}
+                  onLinkPress={(evt, href) => { Linking.openURL(href)}}
+                  {...htmlStyles} />
+              </Container>
+            </ScrollView>
+          </SafeAreaView>
+        )
+      }}
+    </Query>
   );
 };
 
@@ -43,7 +112,81 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
 
     elevation: 4,
+  },
+  mainImage: {
+    height: 212,
+    resizeMode: 'cover',
   }
-})
+});
+
+//HTML Component Styles
+const htmlStyles = {
+  tagsStyles: {
+    p: {
+      fontSize: 18,
+      marginBottom: 16,
+      lineHeight: 26,
+      fontFamily: 'Lato-Light',
+    },
+    a: {
+      //color: theme.colors.primary,
+      fontSize: 18,
+      marginBottom: 16,
+      lineHeight: 26
+    },
+    img: {
+      borderRadius: 10,
+      overflow: 'hidden',
+    },
+    hr: {
+      borderBottomWidth: 1,
+      borderBottomColor: 'gray',
+      marginBottom: 32,
+      marginTop: 16,
+    },
+    ul: {
+      fontSize: 18,
+      marginBottom: 16,
+      lineHeight: 26,
+      fontFamily: 'Lato-Light',
+    },
+    ol: {
+      fontSize: 18,
+      marginBottom: 16,
+      lineHeight: 26,
+      fontFamily: 'Lato-Light',
+    },
+    h1: {
+      fontSize: 32.44,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    },
+    h2: {
+      fontSize: 28.83,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    },
+    h3: {
+      fontSize: 25.63,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    },
+    h4: {
+      fontSize: 22.78,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    },
+    h5: {
+      fontSize: 20.25,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    },
+    h6: {
+      fontSize: 18,
+      marginBottom: 16,
+      fontFamily: 'Muli-Bold',
+    }
+  }
+};
 
 export default FullPost;

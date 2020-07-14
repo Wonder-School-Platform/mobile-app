@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CardContainer = styled.View`
   background: white;
   border-radius: 10px;
-  padding: 16px 0 24px 0;
+  padding: 16px 0 14px 0;
   justify-content:flex-start;
   flex: 0 0 auto;
   flex-direction: column;
@@ -11,7 +11,7 @@ export const CardContainer = styled.View`
 `
 export const FeaturedImage = styled.Image`
   border-radius:10px;
-  height: 212px;
+  height: ${props => props.Hheight || "212px"};
   width:100%;
   margin:-16px 0 32px;
 `
@@ -40,24 +40,24 @@ export const Container = styled.View`
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.primary};
   font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSizes.titles};
   flex:1 1 auto;
   flex-wrap: wrap;
-  margin-bottom:8px;
+  font-family: 'Muli-Bold';
 `
+
 export const Date = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-  font-family: 'Lato-Light';
-  font-size: ${({ theme }) => theme.fontSizes.titles};
+  color: ${({ theme }) => theme.colors.icon};
+  font-size: 16px;
   flex:1 1 auto;
   flex-wrap: wrap;
+  font-family: 'Lato-Light';
 `
 export const Location = styled.Text`
-  color: ${({ theme }) => theme.colors.text};
-  font-family: 'Lato-Light';
-  font-size: ${({ theme }) => theme.fontSizes.titles};
+  color: ${({ theme }) => theme.colors.icon};
+  font-size: 16px;
   flex:1 1 auto;
   flex-wrap: wrap;
+  font-family: 'Lato-Light';
 `
 export const LikesRow = styled.View`
   flex-direction: row;

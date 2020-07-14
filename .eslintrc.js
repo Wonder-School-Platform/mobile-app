@@ -194,6 +194,8 @@ module.exports = {
     "react/sort-comp": 0,
     "react/jsx-wrap-multilines": 2,
     "react-native/no-unused-styles": 2,
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
     "semi-spacing": 0,
     "sort-vars": 0,
     "space-before-blocks": [2, "always"],

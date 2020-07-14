@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 const WeeklyMenuSkeleton = (props) => {
   return (
     <>
-      <FeaturedImage>
+      <FeaturedImage flexHeight={imageHeightPx}>
         <WeekNavigation />
       </FeaturedImage>
       <PostHeader style={styles.shadow}>
