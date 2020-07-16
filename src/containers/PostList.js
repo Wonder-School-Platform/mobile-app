@@ -100,7 +100,7 @@ const PostList = (props) => {
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.5}
         contentContainerStyle={styles.listContainer}
-        ListFooterComponent={() => <PostListEnd>You are up to date!</PostListEnd>}
+        ListFooterComponent={() => <PostListEnd theme={theme}>You are up to date!</PostListEnd>}
       />
     </PostListContainer>
   );

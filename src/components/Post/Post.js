@@ -48,22 +48,22 @@ const Post = (props) => {
           <View style={{ paddingHorizontal: 21 }}>
             <Header>
               {categories.edges.length > 0 &&
-                <IconContainer style={styles.iconContainer}>
+                <IconContainer theme={theme} style={styles.iconContainer}>
                   <Icon style={styles.icon} source={{ uri: categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
                 </IconContainer>
               }
               <Container style={{ paddingHorizontal: 0 }}>
-                <Title numberOfLines={1} onPress={handlePress}>
+                <Title theme={theme} numberOfLines={1} onPress={handlePress}>
                   <ScalableText style={styleTitle}>
                     {title}
                   </ScalableText>
                 </Title>
-                <Date>
+                <Date theme={theme}>
                   <ScalableText style={styleTitle}>
                     {moment(date).format('MMM DD, YYYY')}
                   </ScalableText>
                 </Date>
-                <Location>
+                <Location theme={theme}>
                   <ScalableText style={styleTitle}>
                     {districtSchools.edges.length > 0 &&
                       districtSchools.edges[0].node.name

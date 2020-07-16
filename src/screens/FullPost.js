@@ -73,15 +73,15 @@ const FullPost = ({ route, theme }) => {
             <ScrollView>
               {featuredImage && <Image source={{ uri: featuredImage.sourceUrl }} style={styles.mainImage} />}
               <View style={{ paddingTop: featuredImage ? 0 : 48}}>
-                <PostHeader style={styles.shadow}>
+                <PostHeader theme={theme} style={styles.shadow}>
                   {categories.edges.length > 0 &&
-                    <IconContainer>
+                    <IconContainer theme={theme}>
                       <Icon style={{ width: 24, height: 24 }} source={{ uri: categories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
                     </IconContainer>
                   }
                   <PostHeaderContainer>
-                    <Title>{title}</Title>
-                    <Date>{moment(date).format('MMM DD, YYYY')}</Date>
+                    <Title theme={theme}>{title}</Title>
+                    <Date theme={theme}>{moment(date).format('MMM DD, YYYY')}</Date>
                   </PostHeaderContainer>
                 </PostHeader>
               </View>

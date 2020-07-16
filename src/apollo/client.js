@@ -9,10 +9,14 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 
 const cache = new InMemoryCache({ fragmentMatcher });
 
-const client = new ApolloClient({
+export const schoolClient = new ApolloClient({
   cache,
   uri: 'http://catoosa.wschoolsdev.wpengine.com/graphql',
   resolvers: {}
 });
 
-export default client;
+export const keystoneClient = new ApolloClient({
+  cache,
+  uri: 'http://keystone.wschoolsdev.wpengine.com/graphql',
+  resolvers: {}
+});

@@ -75,20 +75,20 @@ const Preferences = ({theme}) => {
     }
     
     const {loading, error, data} = useQuery(DISTRICT_SCHOOLS);
-    if(loading) return <Paragraph>Loading...</Paragraph>;
+    if(loading) return <Paragraph theme={theme}>Loading...</Paragraph>;
     if(error) return <DataError />
 
     const {districtSchools} = data;
-    const ListSeparator = () => <Separator />;
+    const ListSeparator = () => <Separator theme={theme} />;
 
     return (
-        <SettingsLayout>
+        <SettingsLayout theme={theme}>
             <TextContainer>
-                <Paragraph>
+                <Paragraph theme={theme}>
                     Please select the school levels you want to receive information from, you can adjust it later in the app settings .
                 </Paragraph>
             </TextContainer>
-            <ListContainer>
+            <ListContainer theme={theme}>
                 <FlatList
                     data={districtSchools.edges}
                     renderItem={({item}) => {

@@ -51,30 +51,30 @@ const Post = (props) => {
         <View style={{ paddingHorizontal: 21 }}>
           <Header>
             {!eventCategories === null &&
-              <IconContainer style={styles.iconContainer}>
+              <IconContainer theme={theme} style={styles.iconContainer}>
                 <Icon style={styles.icon} source={{ uri: eventCategories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
               </IconContainer>
             }
             <Container style={{ paddingHorizontal: 0 }}>
-              <Title numberOfLines={1} onPress={handlePress}>
+              <Title theme={theme} numberOfLines={1} onPress={handlePress}>
                 <ScalableText style={styleTitle}>
                   {title}
                 </ScalableText>
               </Title>
               {all_day !== 'yes' ?
-                <Date>
+                <Date theme={theme}>
                   <ScalableText style={styleDate}>
                     {moment(start_date).format('MMM DD, YYYY')}
                   </ScalableText>  
                 </Date>
                 :
-                <Date>
+                <Date theme={theme}>
                   <ScalableText style={styleDate}>
                     All Day
                   </ScalableText>  
                 </Date>
               }
-              {venue && <Location>{eventVenue.map(element => element.node.title)}</Location>}
+              {venue && <Location theme={theme}>{eventVenue.map(element => element.node.title)}</Location>}
             </Container>
             {!eventCategories === null &&
               eventCategories.edges[0].node.slug === 'food' && <Icons.ArrowRight style={{ alignSelf: 'flex-start' }} fill={theme.colors.primary} />

@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { TextContainer, Paragraph } from '../../theme/Styles'
 
 const PostListEnd = (props) => {
-  const { text } = props;
+  const { text, theme } = props;
   return (
     <TextContainer>
-      <Paragraph style={styles.center}>
+      <Paragraph theme={theme} style={styles.center}>
         {text}
       </Paragraph>
     </TextContainer>

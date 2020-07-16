@@ -50,7 +50,7 @@ const EVENT_QUERY = gql`
 `
 
 
-const FullEvent = ({ route }) => {
+const FullEvent = ({ route, theme }) => {
   const eventId = route.params.eventId;
   const venuesList = route.params.venuesList;
   const organizersList = route.params.organizersList;
@@ -88,18 +88,18 @@ const FullEvent = ({ route }) => {
           <SafeAreaView>
             <ScrollView>
               {featuredImage !== null && <Image source={{ uri: featuredImage.sourceUrl }} style={styles.mainImage} />}
-              <PostHeader style={styles.shadow}>
+              <PostHeader theme={theme} style={styles.shadow}>
                 {!eventCategories === null &&
-                  <IconContainer>
+                  <IconContainer theme={theme}>
                     <Icon style={{ width: 24, height: 24 }} source={{ uri: eventCategories.edges[0].node.categoryIcon.categoryIcon.sourceUrl }} />
                   </IconContainer>
                 }
                 <PostHeaderContainer>
-                  <Title>{title}</Title>
+                  <Title theme={theme}>{title}</Title>
                   {all_day !== 'yes' ?
-                    <Date>{moment(start_date).format('MMM DD, YYYY')}</Date>
+                    <Date theme={theme}>{moment(start_date).format('MMM DD, YYYY')}</Date>
                     :
-                    <Date>All Day</Date>
+                    <Date theme={theme}>All Day</Date>
                   }
                   {venue && <Location>{eventVenue.map(element => element.node.title)}</Location>}
                   {organizer && <Location>Organized by {`${eventOrganizer.map(element => element.node.title)}`}</Location>}

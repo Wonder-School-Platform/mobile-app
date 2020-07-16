@@ -1,7 +1,6 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-
-import { MainLayout } from '../theme/Styles';
+import styled from 'styled-components';
 
 const Layout = (props) => {
   const { children } = props;
@@ -14,5 +13,11 @@ const Layout = (props) => {
     </>
   );
 };
+
+
+export const MainLayout = styled.View`
+  background: #fafafa;
+  flex:1 1 100%;
+`
 
 export default Layout;

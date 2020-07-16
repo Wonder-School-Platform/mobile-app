@@ -70,7 +70,10 @@ const PostList = (props) => {
 
   handleFooter = (footerText) => {
     return (
-      <PostListEnd text={'There are no more events to show'} />
+      <PostListEnd
+        theme={theme}
+        text={'There are no more events to show'}
+      />
     )
   }
 

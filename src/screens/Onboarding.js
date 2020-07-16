@@ -89,8 +89,9 @@ const Onboarding = props => {
                 </IconLayer1>
               </IconLayer2>
             </IconLayer3>
-            <Paragraph fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
-                <Bold fontSize={fontSize+"px"} 
+            <Paragraph theme={theme} fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
+                <Bold theme={theme}
+                      fontSize={fontSize+"px"} 
                       lineHeight={lineHeight+"px"} 
                       style={styles.tipText}>
                 Never miss a thing!
@@ -107,8 +108,9 @@ const Onboarding = props => {
                 </IconLayer1>
               </IconLayer2>
             </IconLayer3>
-            <Paragraph fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
-                <Bold fontSize={fontSize+"px"} 
+            <Paragraph theme={theme} fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
+                <Bold theme={theme}
+                      fontSize={fontSize+"px"} 
                       lineHeight={lineHeight+"px"} 
                       style={styles.tipText}>
                 Plan ahead
@@ -125,8 +127,9 @@ const Onboarding = props => {
                 </IconLayer1>
               </IconLayer2>
             </IconLayer3>
-            <Paragraph fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
-                <Bold fontSize={fontSize+"px"} 
+            <Paragraph theme={theme} fontSize={fontSize+"px"} lineHeight={lineHeight+"px"}>
+                <Bold theme={theme}
+                      fontSize={fontSize+"px"} 
                       lineHeight={lineHeight+"px"} 
                       style={styles.tipText}>
                 Stay on track,

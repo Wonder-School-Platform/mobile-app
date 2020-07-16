@@ -80,7 +80,7 @@ const More = ({theme}) => {
   const navigation = useNavigation();
 
   const { loading, error, data } = useQuery(APP_SETTINGS);
-  const ListSeparator = () => <Separator />
+  const ListSeparator = () => <Separator theme={theme} />
   if (loading) return <PostListSkeleton />
   if (error) return <DataError />
 
@@ -92,11 +92,11 @@ const More = ({theme}) => {
   const school = data.appSettings.school_settings;
 
   return (
-    <SettingsLayout>
+    <SettingsLayout theme={theme}>
       <TextContainer>
-        <Title>About {school.schoolName}</Title>
+        <Title theme={theme}>About {school.schoolName}</Title>
       </TextContainer>
-      <ListContainer>
+      <ListContainer theme={theme}>
         <FlatList
           data={pages}
           renderItem={({ item }) => <SettingsItem 
@@ -110,9 +110,9 @@ const More = ({theme}) => {
         />
       </ListContainer>
       <TextContainer>
-        <Title>Notifications and feed</Title>
+        <Title theme={theme}>Notifications and feed</Title>
       </TextContainer>
-      <ListContainer>
+      <ListContainer theme={theme}>
         <SettingsItem
           type='settings'
           settingsName='notifications'
@@ -122,7 +122,7 @@ const More = ({theme}) => {
         >
           Turn on notifications
         </SettingsItem>
-        <Separator />
+        <Separator theme={theme} />
         <SettingsItem
           type='preferences'
           pageName={'Preferences'}

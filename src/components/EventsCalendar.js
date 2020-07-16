@@ -101,7 +101,7 @@ const EventsCalendar = (props) => {
           }}
         />
       </CalendarContainer>
-      <Title style={styles.title}>{viewedDate}</Title>
+      <Title theme={theme} style={styles.title}>{viewedDate}</Title>
     </>
   );
 };
