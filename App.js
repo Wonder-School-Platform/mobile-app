@@ -3,7 +3,7 @@ import {Asset} from 'expo-asset';
 import { AppLoading } from 'expo';
 
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableHighlight } from 'react-native';
+import { Text, TouchableHighlight, Platform } from 'react-native';
 
 import { ApolloProvider } from 'react-apollo';
 import {keystoneClient, schoolClient} from './src/apollo/client';
@@ -18,7 +18,7 @@ import { ThemeProvider } from 'styled-components';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons, Feather} from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const MenuTabs = createBottomTabNavigator();
 
@@ -161,7 +161,7 @@ export default function App(props) {
     });
   }
 
-  const HomeTabs = ({color}) => {
+  const HomeTabs = () => {
     return (
       <ApolloProvider client={schoolClient}>
         <Query query={APP_SETTINGS}>
@@ -173,46 +173,67 @@ export default function App(props) {
 
                 return (
                   <MenuTabs.Navigator
-                    barStyle={{ backgroundColor: schoolTheme.colors.card }}
-                    activeColor={schoolTheme.colors.primary}
-                    inactiveColor={schoolTheme.colors.icon}
+                    screenOptions={({ route }) => ({
+                      tabBarIcon: ({ focused, color, size }) => {
+                        let iconName;
+                        color = focused ? schoolTheme.colors.primary : color;
+                        size = 24;
+                        
+                        if (route.name === 'Home') {
+                          iconName = 'md-home';
+                        } else if (route.name === 'Menu') {
+                          iconName = 'food-fork-drink';
+                          return <MaterialCommunityIcons name={iconName} size={size} color={color} />
+                        } else if (route.name === 'Events') {
+                          iconName = 'md-calendar';
+                        } else if (route.name === 'More') {
+                          iconName = 'dots-horizontal-circle';
+                          return <MaterialCommunityIcons name={iconName} size={size} color={color} />
+                        }
+            
+                        // the returned icon for each tab
+                        return (
+                          route.name !== 'Menu' &&
+                          route.name !== 'More' &&
+                            <Ionicons name={iconName} size={size} color={color} />
+                        ) 
+                      },
+                    })}
+                    tabBarOptions={{
+                      barStyle: { backgroundColor: schoolTheme.colors.card },
+                      activeTintColor: schoolTheme.colors.primary,
+                      inactiveTintColor: schoolTheme.colors.icon,
+                      showLabel: false,
+                      shadow: true,
+                      style: {
+                        ...Platform.select({
+                          android: {
+                            elevation: 6
+                          },
+                          ios: {
+                            shadowOffset: {
+                              width: 0,
+                              height: -4
+                            },
+                            shadowColor: 'rgb(138, 138, 138)',
+                            shadowOpacity: 0.21,
+                            shadorRadius: 4,
+                          }
+                        })
+                      }
+                    }}
                     >
                     <MenuTabs.Screen name="Home"
                       component={HomeStack}
-                      options={{
-                        tabBarLabel: 'Home',
-                        tabBarIcon: ({ color }) => (
-                          <Ionicons name={'md-home'} size={24} color={color} />
-                        )
-                      }}
                     />
                     <MenuTabs.Screen name="Menu"
                       component={KeystoneMenus}
-                      options={{
-                        tabBarLabel: 'Weekly Menu',
-                        tabBarIcon: ({ color }) => (
-                          <Ionicons name={'md-restaurant'} size={24} color={color} />
-                        )
-                      }}
                     />
                     <MenuTabs.Screen name="Events"
                       component={EventsStack}
-                      options={{
-                        tabBarLabel: 'Events',
-                        tabBarIcon: ({ color }) => (
-                          <Ionicons name={'md-calendar'} size={24} color={color} />
-                        )
-                      }}
                     />
                     <MenuTabs.Screen name="More"
                       component={SettingsStack}
-                      style={{borderRadius: 30}}
-                      options={{
-                        tabBarLabel: 'More',
-                        tabBarIcon: ({ color }) => (
-                          <Feather name="more-horizontal" size={22} color={color} />
-                        )
-                      }}
                     />
                   </MenuTabs.Navigator>
                 )

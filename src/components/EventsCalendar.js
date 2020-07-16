@@ -113,6 +113,7 @@ const CalendarContainer = styled.View`
 `
 const styles = StyleSheet.create({
   shadow: {
+    margin: 4,
     shadowColor: 'rgb(138, 138, 138)',
     shadowOffset: {
       width: 0,
