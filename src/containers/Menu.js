@@ -162,13 +162,20 @@ const TheMenu = ({ data, theme }) => {
         <DropDownPicker
         items={dataSchools}
         containerStyle={{height: 50}}
-        style={[styles.dropdown, {backgroundColor: theme.colors.primary}]}
+        style={{backgroundColor: theme.colors.primary, borderWidth: 0}}
+        dropDownStyle={{backgroundColor: theme.colors.primary, borderColor: theme.colors.primary}}
         itemStyle={{
             justifyContent: 'flex-start',
+            backgroundColor: theme.colors.primary,
         }}
-        dropDownStyle={{backgroundColor: '#fafafa'}}
+        arrowStyle={{color: 'white'}}
+        labelStyle={{
+            fontSize: 14,
+            textAlign: 'left',
+            color: '#fff',
+        }}
+        activeLabelStyle={{fontFamily: 'Lato-Black'}}
         placeholder='Filter by School'
-        placeholderStyle={{color:'white'}}
         onChangeItem={item => {
           console.log(item.value)
         }}
@@ -268,10 +275,6 @@ const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#00421c',
     flex: 1,
-  },
-  dropdown: {
-    borderWidth: 0,
-    color: 'white'
   },
   paddingH: {
     paddingHorizontal: 24
