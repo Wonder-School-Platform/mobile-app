@@ -30,7 +30,10 @@ const entities = new Entities();
 
 const TheMenu = ({ data, theme }) => {
   //Hooks
-  const [selectedSchool, setSelectedSchool] = useState('');
+  const [selectedSchool, setSelectedSchool] = useState({});
+  useEffect(() => {
+    currentSchool();
+  }, [])
   const [activeDate, setActiveDate] = useState(moment().format('DD'));
   //const [isMeal, setIsMeal] = useState(moment().format('HH') < 12 ? 'Breakfast' : 'Lunch');
   const [isMeal, setIsMeal] = useState('Lunch');
@@ -80,20 +83,19 @@ const TheMenu = ({ data, theme }) => {
     });
   })[0];
 
-  let currentSchool = data.districtSchools.edges.map(district => {
-    return selectedSchool === '' ?
-      district.node.children.edges[0].node : 
-      district.node.children.edges.find(school => school.node.name === selectedSchool);
-  });
+  const handleSelectedSchool = item => {
+    setSelectedSchool(item.value);
+  }
 
-  /* useEffect(() => {
-    setSelectedSchool('High School');
-  }, []) */
-  console.log(currentSchool);
+  function currentSchool() {
+    const districtSchools = data.districtSchools.edges;
+    const showSchool = districtSchools.map(district => {
+      return district.node.children.edges[0].node;
+    });
+    setSelectedSchool(showSchool);
+  };
 
-
-
-
+  console.log(selectedSchool)
 
   /*
   const today = handleWeekDay();
@@ -176,9 +178,7 @@ const TheMenu = ({ data, theme }) => {
         }}
         activeLabelStyle={{fontFamily: 'Lato-Black'}}
         placeholder='Filter by School'
-        onChangeItem={item => {
-          console.log(item.value)
-        }}
+        onChangeItem={handleSelectedSchool}
     />
       
         

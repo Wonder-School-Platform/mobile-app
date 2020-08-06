@@ -82,7 +82,6 @@ export const WEEKLY_MENU_POSTS_QUERY = gql`
                             }
                           }
                         }
-                        fieldGroupName
                       }
                     }
                   }
