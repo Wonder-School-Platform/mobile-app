@@ -85,8 +85,8 @@ const UpcomingEvents = (props) => {
     <Query query={ALL_EVENTS_QUERY}>
       {({ loading, error, data, fetchMore }) => {
         if (loading) return <PostListSkeleton />;
-        if (error) return <DataError />;
-        if (!data.events.edges.length) return <NoEvents>There are no upcoming events to show at the moment.</NoEvents>;
+        if (error) return <DataError theme={theme} />;
+        if (!data.events.edges.length) return <NoEvents theme={theme}>There are no upcoming events to show at the moment.</NoEvents>;
         return (
           <EventsList
             data={data.events}

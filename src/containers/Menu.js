@@ -19,7 +19,6 @@ import {
 import { Date } from '../components/Post/Styles';
 import PrimaryButton from '../components/PrimaryButton';
 import * as Icons from '../components/Icons';
-import Theme from '../theme/Theme';
 import moment from 'moment';
 
 import ScalableText from 'react-native-text';
@@ -30,6 +29,15 @@ import DropDownPicker from 'react-native-dropdown-picker';
 const entities = new Entities();
 
 const TheMenu = ({ data, theme }) => {
+  //Hooks
+  const [selectedSchool, setSelectedSchool] = useState('');
+  const [activeDate, setActiveDate] = useState(moment().format('DD'));
+  //const [isMeal, setIsMeal] = useState(moment().format('HH') < 12 ? 'Breakfast' : 'Lunch');
+  const [isMeal, setIsMeal] = useState('Lunch');
+  const [dayToShow, setDayToShow] = useState(today);
+  const [isWeek, setIsWeek] = useState(0);
+
+  //Handling days and dates
   const handleWeekDay = () => {
     if (moment().isoWeekday() <= 5) {
       return moment().format('ddd');
@@ -38,14 +46,61 @@ const TheMenu = ({ data, theme }) => {
     }
   }
   const today = handleWeekDay();
-  const tagEvents = data.tags.edges;
-  //const [isMeal, setIsMeal] = useState(moment().format('HH') < 12 ? 'Breakfast' : 'Lunch');
-  const [isMeal, setIsMeal] = useState('Lunch');
-  const [dayToShow, setDayToShow] = useState(today);
-  const [isWeek, setIsWeek] = useState(0);
+  const weekDates = {
+    Mon: moment(moment().day('Monday').add(isWeek, 'weeks')._d).format('DD'),
+    Tue: moment(moment().day('Tuesday').add(isWeek, 'weeks')._d).format('DD'),
+    Wed: moment(moment().day('Wednesday').add(isWeek, 'weeks')._d).format('DD'),
+    Thu: moment(moment().day('Thursday').add(isWeek, 'weeks')._d).format('DD'),
+    Fri: moment(moment().day('Friday').add(isWeek, 'weeks')._d).format('DD'),
+  };
+
+  const handleDateToShow = ((dayName, dayNumber) => {
+    setDayToShow(dayName);
+    setActiveDate(dayNumber);
+  });
+
+  const handleIsWeek = (direction) => {
+    if (direction === 'left') {
+      setIsWeek(isWeek - 1);
+    } else {
+      setIsWeek(isWeek + 1);
+    }
+  };
+
+  // Handling School Menu Data
+  let dataSchools = [];
+  
+  const currentMonth = moment().format('MM-Y');
+  const schoolsOfDistrict = data.districtSchools.edges.map(district => {
+    return district.node.children.edges.map(school => {
+      dataSchools.push({
+        value: school.node.slug,
+        label: school.node.name
+      })
+    });
+  })[0];
+
+  let currentSchool = data.districtSchools.edges.map(district => {
+    return selectedSchool === '' ?
+      district.node.children.edges[0].node : 
+      district.node.children.edges.find(school => school.node.name === selectedSchool);
+  });
+
+  /* useEffect(() => {
+    setSelectedSchool('High School');
+  }, []) */
+  console.log(currentSchool);
+
+
+
+
+
+  /*
+  const today = handleWeekDay();
+  const tagEvents = data.tags.edges;*/
 
   //All Menus
-  let listAllMenus = []
+  /* let listAllMenus = []
   function createList() {
     tagEvents.map(item => {
       item.node.events.edges.map(i => {
@@ -65,19 +120,10 @@ const TheMenu = ({ data, theme }) => {
       })
     })
   };
-  createList();
-
-  const [activeDate, setActiveDate] = useState(moment().format('DD'));
-  const weekDates = {
-    Mon: moment(moment().day('Monday').add(isWeek, 'weeks')._d).format('DD'),
-    Tue: moment(moment().day('Tuesday').add(isWeek, 'weeks')._d).format('DD'),
-    Wed: moment(moment().day('Wednesday').add(isWeek, 'weeks')._d).format('DD'),
-    Thu: moment(moment().day('Thursday').add(isWeek, 'weeks')._d).format('DD'),
-    Fri: moment(moment().day('Friday').add(isWeek, 'weeks')._d).format('DD'),
-  };
+  createList(); */
 
   //Define the Menu to show
-  let Menu = [];
+  /* let Menu = [];
   let BreakfastMenu = [];
   let LunchMenu = [];
   function MenuToShow(showThis, meal) {
@@ -105,61 +151,37 @@ const TheMenu = ({ data, theme }) => {
 
   const handleMeal = () => {
     //setIsMeal(isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast');
-  }
-
-  const handleIsWeek = (direction) => {
-    if (direction === 'left') {
-      setIsWeek(isWeek - 1);
-    } else {
-      setIsWeek(isWeek + 1);
-    }
-  }
+  } */
 
   const imageHeight = Dimensions.get('window').height / 2.8;
   const iconWidth = Dimensions.get('window').width / 8;
   const iconWidthPx = iconWidth + 'px';
 
-  let dataSchools = [
-    {
-      value:'Cherokee Elementary',
-      label: 'Cherokee Elementary'
-    },
-    {
-      value: 'Helen Paul Learning Center',
-      label: 'Helen Paul Learning Center'
-    },
-    {
-      value:'High School',
-      label: 'High School'
-    },
-    {
-      value: 'Wells Middle School',
-      label: 'Wells Middle School'
-    }]
-
   return (
     <SafeAreaView style={styles.safeArea}>
-      
         <DropDownPicker
         items={dataSchools}
         containerStyle={{height: 50}}
-        style={[styles.dropdown, {backgroundColor: theme.colors.primary,}]}
+        style={[styles.dropdown, {backgroundColor: theme.colors.primary}]}
         itemStyle={{
             justifyContent: 'flex-start',
         }}
         dropDownStyle={{backgroundColor: '#fafafa'}}
         placeholder='Filter by School'
         placeholderStyle={{color:'white'}}
+        onChangeItem={item => {
+          console.log(item.value)
+        }}
     />
       
         
       <ScrollView style={styles.wrapper}>
         <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
-          {isMeal === 'Breakfast' ?
+          {/* {isMeal === 'Breakfast' ?
             BreakfastMenu.length > 0 && BreakfastMenu[0].featuredImage && <MainImg source={{ uri: BreakfastMenu[0].featuredImage.sourceUrl }} />
             :
             LunchMenu[0].featuredImage && <MainImg source={{ uri: LunchMenu[0].featuredImage.sourceUrl }} />
-          }
+          } */}
           <WeekNavigation
             weekDates={weekDates}
             calendarDate={activeDate}
@@ -169,21 +191,22 @@ const TheMenu = ({ data, theme }) => {
           />
           
         </FeaturedImage >
-        <PostHeader style={styles.shadow}>
-          <IconContainer height={iconWidthPx} width={iconWidthPx}>
+        <PostHeader style={styles.shadow} theme={theme}>
+          <IconContainer height={iconWidthPx} width={iconWidthPx} theme={theme}>
             <Ionicons name={'md-restaurant'} size={24} color={'#ffffff'} />
           </IconContainer>
           <PostHeaderContainer>
-            <Title>
+            <Title theme={theme}>
               <ScalableText style={styles.title}>
-                {BreakfastMenu.length > 0 && isMeal === 'Breakfast' ?
+                {/* {BreakfastMenu.length > 0 && isMeal === 'Breakfast' ?
                   entities.decode(BreakfastMenu[0].title)
                   :
                   entities.decode(LunchMenu[0].title)
-                }
+                } */}
+                Breakfast
               </ScalableText>
             </Title>
-            <Date>
+            <Date theme={theme}>
               <ScalableText style={styles.date}>
                 {`${isMeal} for ${dayToShow}`}
               </ScalableText>
@@ -191,7 +214,7 @@ const TheMenu = ({ data, theme }) => {
           </PostHeaderContainer>
         </PostHeader>
         <Container>
-          <HTML
+          {/* <HTML
             html={
               BreakfastMenu.length > 0 && isMeal === 'Breakfast' ?
                 BreakfastMenu[0].content
@@ -201,14 +224,14 @@ const TheMenu = ({ data, theme }) => {
             imagesMaxWidth={Dimensions.get('window').width - 48}
             baseFontStyle={{ fontFamily: 'Lato-Regular' }}
             {...htmlStyles}
-          />
+          /> */}
           {/* <PrimaryButton
             onPress={handleMeal}
             text={isMeal === 'Breakfast' ? "See Lunch Menu" : "See Breakfast Menu"}
           /> */}
 
           <NutritionalFacts>
-            <Title>Nutritional Facts:</Title>
+            <Title theme={theme}>Nutritional Facts:</Title>
             <Text>Portion Size 1 cup</Text>
             <View style={styles.NF_Big_separator}></View>
             <NutritionalFactsRow>

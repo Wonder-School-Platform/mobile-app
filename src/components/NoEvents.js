@@ -2,10 +2,10 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Paragraph, TextContainer } from '../theme/Styles';
 
-const NoEvents = ({children}) => {
+const NoEvents = ({children, theme}) => {
     return (
         <TextContainer style={styles.container}>
-            <Paragraph style={styles.errorMessage}>{children}</Paragraph>
+            <Paragraph theme={theme} style={styles.errorMessage}>{children}</Paragraph>
         </TextContainer>
     );
 };

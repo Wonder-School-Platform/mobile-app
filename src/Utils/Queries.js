@@ -17,17 +17,79 @@ export const APP_SETTINGS = gql`
         schoolLogo {
           sourceUrl
         }
+        mainTaxonomySlug
       }
     }
   }
 `
 //Keystone App Queries
-export const ALL_KEYSTONE_POSTS = gql`
-  query ALL_KEYSTONE_POSTS {
-    posts {
+export const WEEKLY_MENU_POSTS_QUERY = gql`
+  query MyQuery($currentSchool: [String]) {
+    districtSchools(where: {slug: $currentSchool}) {
       edges {
         node {
-          title
+          slug
+          children {
+            edges {
+              node {
+                slug
+                name
+                menuPlans {
+                  edges {
+                    node {
+                      title
+                      menuPlan_month {
+                        menuPlanMonth
+                      }
+                      daily_menu {
+                        menuPlan {
+                          meal {
+                            fieldGroupName
+                            featuredImage {
+                              sourceUrl(size: MEDIUM)
+                            }
+                            createAMeal {
+                              ... on Recipe {
+                                id
+                                title(format: RAW)
+                                recipe_nutritional_info {
+                                  allergens
+                                  carbs
+                                  fat
+                                  fiber
+                                  fieldGroupName
+                                  kcal
+                                  portionSize
+                                  protein
+                                  recipeNumber
+                                  sodium
+                                }
+                              }
+                            }
+                          }
+                          fieldGroupName
+                          menuDate
+                          option1 {
+                            ... on Recipe {
+                              id
+                              title(format: RAW)
+                            }
+                          }
+                          option2 {
+                            ... on Recipe {
+                              id
+                              title(format: RAW)
+                            }
+                          }
+                        }
+                        fieldGroupName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }

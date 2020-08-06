@@ -3,19 +3,14 @@ import {Asset} from 'expo-asset';
 import { AppLoading } from 'expo';
 
 import React, {useState, useEffect} from 'react';
-import { Text, TouchableHighlight, Platform } from 'react-native';
+import { Text, Platform, TouchableWithoutFeedback } from 'react-native';
 
 import { ApolloProvider } from 'react-apollo';
 import {keystoneClient, schoolClient} from './src/apollo/client';
 import { Query } from 'react-apollo';
-import gql from 'graphql-tag';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { AppearanceProvider } from 'react-native-appearance';
-
-import { ThemeProvider } from 'styled-components';
-
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -34,9 +29,11 @@ import UpcomingEvents from './src/screens/UpcomingEvents';
 import More from './src/screens/More';
 import FullPage from './src/screens/FullPage';
 import Preferences from './src/screens/Preferences';
+import WeeklyMenu from './src/screens/WeeklyMenu';
 
 //Queries
-import {APP_SETTINGS, ALL_KEYSTONE_POSTS} from './src/Utils/Queries';
+import {APP_SETTINGS, WEEKLY_MENU_POSTS_QUERY} from './src/Utils/Queries';
+import DataError from './src/components/DataError';
 
 // AsyncStorage Keys
 const SETTINGS_KEY = '@save_settings';
@@ -227,7 +224,7 @@ export default function App(props) {
                       component={HomeStack}
                     />
                     <MenuTabs.Screen name="Menu"
-                      component={KeystoneMenus}
+                      component={KeystoneStack}
                     />
                     <MenuTabs.Screen name="Events"
                       component={EventsStack}
@@ -290,11 +287,6 @@ export default function App(props) {
         </Stack.Screen>
       </Stack.Navigator>
     )
-  }
-
-  function KeystoneMenus({navigation}) {
-    navigation.navigate('Keystone');
-    return <PostListSkeleton />
   }
 
   const EventsStack = () => {
@@ -366,6 +358,26 @@ export default function App(props) {
     )
   }
 
+  const KeystoneStack = () => {
+    const currentSchool = appSettings.school_settings.mainTaxonomySlug;
+    
+    return (
+      <ApolloProvider client={keystoneClient}>
+        <Query query={WEEKLY_MENU_POSTS_QUERY} variables={
+          {currentSchool: currentSchool}
+        }>
+            {({loading, error, data}) => {
+              if (loading) return <PostListSkeleton />
+              if (error) return <DataError theme={schoolTheme} error={error} />
+              return (
+                <WeeklyMenu data={data} theme={schoolTheme} />
+              )
+            }}
+        </Query>
+      </ApolloProvider>
+    )
+  }
+
   return (
     loadingComplete === false ? 
       <AppLoading
@@ -374,11 +386,9 @@ export default function App(props) {
         onError={console.warn}
       /> :
       <NavigationContainer>
-          <Stack.Navigator headerMode='none'>
+          <Stack.Navigator headerMode={'none'}>
             {onboarding === false &&
-              <Stack.Screen
-                name='Onboarding'
-              >
+              <Stack.Screen name='Onboarding'>
                 {props => 
                     <ApolloProvider client={schoolClient}>
                         <Query query={APP_SETTINGS}>
@@ -389,13 +399,13 @@ export default function App(props) {
                                 handleSettings(data);
 
                                 return (
-                                    <Layout>
-                                      <Onboarding
-                                        logo={logo}
-                                        theme={schoolTheme}
-                                        {...props}
-                                      />
-                                    </Layout>
+                                  <Layout>
+                                    <Onboarding
+                                      logo={logo}
+                                      theme={schoolTheme}
+                                      {...props}
+                                    />
+                                  </Layout>
                                 )
                             }}
                         </Query>
@@ -403,29 +413,12 @@ export default function App(props) {
                 }
               </Stack.Screen>
             }
-            <Stack.Screen
-              name='Home'
+            <Stack.Screen name='Main'
               component={HomeTabs}
               {...props}
             />
-            <Stack.Screen
-              name='Keystone'
-            >
-              {props => 
-                  //Needs Prevent going back => https://reactnavigation.org/docs/preventing-going-back/
-                  <ApolloProvider client={keystoneClient}>
-                      <Query query={ALL_KEYSTONE_POSTS}>
-                          {({loading, error, data}) => {
-                              if (loading) return <Text>Loading</Text>
-                              if (error) return <Text>Error</Text>
-
-                              return (
-                                  <Text style={{marginTop: 150}}>Keystone Data Loaded!</Text>
-                              )
-                          }}
-                      </Query>
-                  </ApolloProvider>
-              }
+            <Stack.Screen name='Keystone'>
+              {props => <Layout><KeystoneStack/></Layout>}
             </Stack.Screen>
           </Stack.Navigator>
       </NavigationContainer>

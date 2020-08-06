@@ -12,11 +12,9 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import moment from 'moment';
 import HTML from 'react-native-render-html';
-import ScalableText from 'react-native-text';
 import {Linking} from 'expo';
 import { Icon, IconContainer, PostHeader, PostHeaderContainer, Title, Container } from '../theme/Styles';
 import { Date } from '../components/Post/Styles';
-import Theme from '../theme/Theme';
 import PostSkeleton from '../components/Post/PostSkeleton';
 import DataError from '../components/DataError';
 
@@ -70,7 +68,7 @@ const FullPost = ({ route, theme }) => {
 
         return (
           <SafeAreaView>
-            <ScrollView>
+            <ScrollView style={featuredImage === null && styles.noFeaturedImg}>
               {featuredImage && <Image source={{ uri: featuredImage.sourceUrl }} style={styles.mainImage} />}
               <View style={{ paddingTop: featuredImage ? 0 : 48}}>
                 <PostHeader theme={theme} style={styles.shadow}>

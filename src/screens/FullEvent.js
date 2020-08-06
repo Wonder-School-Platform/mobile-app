@@ -86,7 +86,7 @@ const FullEvent = ({ route, theme }) => {
 
         return (
           <SafeAreaView>
-            <ScrollView>
+            <ScrollView style={featuredImage === null && styles.noFeaturedImg}>
               {featuredImage !== null && <Image source={{ uri: featuredImage.sourceUrl }} style={styles.mainImage} />}
               <PostHeader theme={theme} style={styles.shadow}>
                 {!eventCategories === null &&
@@ -137,6 +137,9 @@ const styles = StyleSheet.create({
   mainImage: {
     height: 212,
     resizeMode: 'cover',
+  },
+  noFeaturedImg: {
+    paddingTop: 48,
   }
 });
 

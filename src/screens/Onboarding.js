@@ -47,7 +47,7 @@ const Onboarding = props => {
   //Navigation props
   const handleOnboarding = () => {
     saveDataOnboarding(true);
-    navigation.navigate('Home');
+    navigation.navigate('Main');
   }
   
   const fadeIn = () => {

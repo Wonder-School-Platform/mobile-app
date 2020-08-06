@@ -6,7 +6,7 @@ import Theme from '../../theme/Theme';
 import { Entypo } from '@expo/vector-icons'; 
 import ScalableText from 'react-native-text';
 
-const WeekDayWidth = (Dimensions.get('window').width / 7) - 10;
+const WeekDayWidth = (Dimensions.get('window').width / 7) - 5;
 const WeekDayWidthPx = WeekDayWidth + 'px';
 
 const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWeek, theme }) => {
@@ -24,10 +24,9 @@ const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWee
         }}
         style={{ borderWidth: 1, background: 'red' }}
       >
-        <WeekDay active={calendarDate} width={WeekDayWidthPx} height={WeekDayWidthPx}>
-          <ScalableText styles={styles.day}>{day}</ScalableText>
-          <Date active={calendarDate}><ScalableText style={styles.date}>{date}</ScalableText></Date>
-          
+        <WeekDay active={calendarDate === date ? true : false} width={WeekDayWidthPx} height={WeekDayWidthPx} theme={theme}>
+          <Day active={calendarDate === date ? true : false} theme={theme}><ScalableText styles={styles.day}>{day}</ScalableText></Day>
+          <Date active={calendarDate === date ? true : false} theme={theme}><ScalableText style={styles.date}>{date}</ScalableText></Date>
         </WeekDay>
       </TouchableWithoutFeedback>
     )
@@ -35,7 +34,7 @@ const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWee
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Navigation style={styles.shadow}>
+      <Navigation style={styles.shadow} theme={theme}>
         <TouchableWithoutFeedback
           onPress={() => handleIsWeek('left')}
         >
