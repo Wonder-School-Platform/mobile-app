@@ -20,7 +20,7 @@ const WeekNavigation = ({ weekDates, calendarDate, handleDateToShow, handleIsWee
         key={key[0]}
         dataDay={key[0]}
         onPress={() => {
-          handleDateToShow(key[0], key[1])
+          handleDateToShow(key[1])
         }}
         style={{ borderWidth: 1, background: 'red' }}
       >

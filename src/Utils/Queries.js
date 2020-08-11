@@ -51,7 +51,7 @@ export const WEEKLY_MENU_POSTS_QUERY = gql`
                             createAMeal {
                               ... on Recipe {
                                 id
-                                title(format: RAW)
+                                title
                                 recipe_nutritional_info {
                                   allergens
                                   carbs
@@ -72,13 +72,37 @@ export const WEEKLY_MENU_POSTS_QUERY = gql`
                           option1 {
                             ... on Recipe {
                               id
-                              title(format: RAW)
+                              title
+                              recipe_nutritional_info {
+                                allergens
+                                carbs
+                                fat
+                                fiber
+                                fieldGroupName
+                                kcal
+                                portionSize
+                                protein
+                                recipeNumber
+                                sodium
+                              }
                             }
                           }
                           option2 {
                             ... on Recipe {
                               id
-                              title(format: RAW)
+                              title
+                              recipe_nutritional_info {
+                                allergens
+                                carbs
+                                fat
+                                fiber
+                                fieldGroupName
+                                kcal
+                                portionSize
+                                protein
+                                recipeNumber
+                                sodium
+                              }
                             }
                           }
                         }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, Dimensions, View } from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, Dimensions, View, FlatList } from 'react-native';
 import HTML from 'react-native-render-html';
 const Entities = require('html-entities').XmlEntities;
 import {Ionicons} from '@expo/vector-icons';
@@ -11,6 +11,7 @@ import {
   IconContainer,
   PostHeader,
   PostHeaderContainer,
+  Paragraph,
   Title,
   Container,
   NutritionalFacts,
@@ -30,22 +31,23 @@ const entities = new Entities();
 
 const TheMenu = ({ data, theme }) => {
   //Hooks
-  const [selectedSchool, setSelectedSchool] = useState({});
+  const [selectedSchool, setSelectedSchool] = useState();
   useEffect(() => {
     currentSchool();
-  }, [])
+  },[])
   const [activeDate, setActiveDate] = useState(moment().format('DD'));
-  //const [isMeal, setIsMeal] = useState(moment().format('HH') < 12 ? 'Breakfast' : 'Lunch');
-  const [isMeal, setIsMeal] = useState('Lunch');
-  const [dayToShow, setDayToShow] = useState(today);
+  const [dayToShow, setDayToShow] = useState('');
+  useEffect(() => {
+    setDayToShow(today);
+  },[])
   const [isWeek, setIsWeek] = useState(0);
 
   //Handling days and dates
   const handleWeekDay = () => {
     if (moment().isoWeekday() <= 5) {
-      return moment().format('ddd');
+      return moment().format('DD');
     } else {
-      return moment(moment().day('Friday')._d).format('ddd');
+      return moment(moment().day('Friday')._d).format('DD');
     }
   }
   const today = handleWeekDay();
@@ -57,8 +59,8 @@ const TheMenu = ({ data, theme }) => {
     Fri: moment(moment().day('Friday').add(isWeek, 'weeks')._d).format('DD'),
   };
 
-  const handleDateToShow = ((dayName, dayNumber) => {
-    setDayToShow(dayName);
+  const handleDateToShow = (dayNumber => {
+    setDayToShow(dayNumber);
     setActiveDate(dayNumber);
   });
 
@@ -74,95 +76,148 @@ const TheMenu = ({ data, theme }) => {
   let dataSchools = [];
   
   const currentMonth = moment().format('MM-Y');
-  const schoolsOfDistrict = data.districtSchools.edges.map(district => {
-    return district.node.children.edges.map(school => {
-      dataSchools.push({
-        value: school.node.slug,
-        label: school.node.name
-      })
-    });
-  })[0];
+  function schoolsOfDistrict() {
+    data & data.districtSchools.edges.map(district => {
+      return district.node.children.edges.map(school => {
+        dataSchools.push({
+          value: school.node.slug,
+          label: school.node.name
+        })
+      });
+  })[0]};
+  schoolsOfDistrict();
 
   const handleSelectedSchool = item => {
-    setSelectedSchool(item.value);
+    console.log(item.value);
+    //setSelectedSchool(item.value);
   }
 
   function currentSchool() {
     const districtSchools = data.districtSchools.edges;
     const showSchool = districtSchools.map(district => {
-      return district.node.children.edges[0].node;
-    });
-    setSelectedSchool(showSchool);
+      return district.node.children.edges[0].node.menuPlans;
+    })[0];
+    
+    const activeMenu = showSchool.edges.filter(menu => menu.node.menuPlan_month.menuPlanMonth === currentMonth);
+    const menuPlan = activeMenu[0].node.daily_menu.menuPlan;
+    setSelectedSchool(menuPlan);
+    console.log(menuPlan);
   };
-
-  console.log(selectedSchool)
-
-  /*
-  const today = handleWeekDay();
-  const tagEvents = data.tags.edges;*/
 
   //All Menus
-  /* let listAllMenus = []
+  let listAllMenus = []
   function createList() {
-    tagEvents.map(item => {
-      item.node.events.edges.map(i => {
-        if (listAllMenus.length <= 0) {
-          listAllMenus.push(i.node)
-        } else {
-          let exist = false;
-          listAllMenus.forEach(element => {
-            if (element.databaseId === i.node.databaseId) {
-              exist = true;
-            }
-          });
-          if (exist === false) {
-            listAllMenus.push(i.node)
-          }
-        }
-      })
+    selectedSchool && selectedSchool.map(item => {
+      listAllMenus.push(item);
     })
   };
-  createList(); */
+  createList();
 
   //Define the Menu to show
-  /* let Menu = [];
-  let BreakfastMenu = [];
-  let LunchMenu = [];
-  function MenuToShow(showThis, meal) {
+  let Meal = [];
+  let Option1 = [];
+  let Option2 = [];
+  function MenuToShow(showThis) {
     listAllMenus.filter(filtered => {
-      if (moment(filtered.start_date).format('ddd') === showThis) {
-        Menu.push(filtered)
+      if (moment(filtered.menuDate).format('DD') === showThis) {
+        Meal.push(filtered.meal)
+        Option1.push(filtered.option1[0])
+        Option2.push(filtered.option2[0])
       }
-    })
-    Menu.filter(filtered => {
-      if (filtered.tags.edges[0].node.name === 'Breakfast') {
-        BreakfastMenu = [];
-        BreakfastMenu.push(filtered);
-      } else {
-        LunchMenu = [];
-        LunchMenu.push(filtered);
-      }
-    })
+    });
   }
-  MenuToShow(dayToShow, isMeal);
+  MenuToShow(dayToShow);
 
-  const handleDateToShow = ((dayName, dayNumber) => {
-    setDayToShow(dayName);
-    setActiveDate(dayNumber);
-  })
+  const optionMeals = `
+    <p><b>Option Meal 1: </b> ${Option1[0] && Option1[0].title}</p>
+    <p><b>Option Meal 2: </b> ${Option2[0] && Option2[0].title}</p>
+  `
 
-  const handleMeal = () => {
-    //setIsMeal(isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast');
-  } */
+  /* console.log('Meal :', Meal);
+  console.log('Option 1', Option1);
+  console.log('Option 2', Option2); */
+
+  //Nutritional Information
+  let allergens,
+  carbs,
+  fat,
+  fiber,
+  fieldGroupName,
+  kcal,
+  portionSize,
+  protein,
+  recipeNumber,
+  sodium;
+
+  const getKcal = () => {
+    let totalKcal = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalKcal = totalKcal + item.recipe_nutritional_info.kcal
+    });
+    return totalKcal.toFixed(2);
+  }
+  
+  const getFat = () => {
+    let totalFat = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalFat = totalFat + item.recipe_nutritional_info.fat
+    });
+    return totalFat.toFixed(2);
+  }
+  
+  const getSodium = () => {
+    let totalSodium = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalSodium = totalSodium + item.recipe_nutritional_info.sodium
+    });
+    return totalSodium.toFixed(2);
+  }
+  
+  const getCarbs = () => {
+    let totalCarbs = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalCarbs = totalCarbs + item.recipe_nutritional_info.carbs
+    });
+    return totalCarbs.toFixed(2);
+  }
+  
+  const getFiber = () => {
+    let totalFiber = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalFiber = totalFiber + item.recipe_nutritional_info.fiber
+    });
+    return totalFiber.toFixed(2);
+  }
+  
+  const getProtein = () => {
+    let totalProtein = 0;
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      totalProtein = totalProtein + item.recipe_nutritional_info.protein
+    });
+    return totalProtein.toFixed(2);
+  }
+  
+  const getAllergens = () => {
+    let totalAllergens = [];
+    Meal[0] && Meal[0].createAMeal.map(item => {
+      item.recipe_nutritional_info.allergens && item.recipe_nutritional_info.allergens.map(allergen => {
+        totalAllergens.push(allergen)
+      })
+    });
+    totalAllergens = totalAllergens.join(', ');
+    return totalAllergens;
+  }
 
   const imageHeight = Dimensions.get('window').height / 2.8;
   const iconWidth = Dimensions.get('window').width / 8;
   const iconWidthPx = iconWidth + 'px';
 
+  console.log(dataSchools)
+
   return (
     <SafeAreaView style={styles.safeArea}>
         <DropDownPicker
-        items={dataSchools}
+        items={dataSchools && dataSchools}
         containerStyle={{height: 50}}
         style={{backgroundColor: theme.colors.primary, borderWidth: 0}}
         dropDownStyle={{backgroundColor: theme.colors.primary, borderColor: theme.colors.primary}}
@@ -184,11 +239,7 @@ const TheMenu = ({ data, theme }) => {
         
       <ScrollView style={styles.wrapper}>
         <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
-          {/* {isMeal === 'Breakfast' ?
-            BreakfastMenu.length > 0 && BreakfastMenu[0].featuredImage && <MainImg source={{ uri: BreakfastMenu[0].featuredImage.sourceUrl }} />
-            :
-            LunchMenu[0].featuredImage && <MainImg source={{ uri: LunchMenu[0].featuredImage.sourceUrl }} />
-          } */}
+          <MainImg source={{ uri: Meal[0] && Meal[0].featuredImage.sourceUrl }} />
           <WeekNavigation
             weekDates={weekDates}
             calendarDate={activeDate}
@@ -205,66 +256,55 @@ const TheMenu = ({ data, theme }) => {
           <PostHeaderContainer>
             <Title theme={theme}>
               <ScalableText style={styles.title}>
-                {/* {BreakfastMenu.length > 0 && isMeal === 'Breakfast' ?
-                  entities.decode(BreakfastMenu[0].title)
-                  :
-                  entities.decode(LunchMenu[0].title)
-                } */}
-                Breakfast
+                {Meal[0] && Meal[0].createAMeal[0].title}
               </ScalableText>
             </Title>
             <Date theme={theme}>
               <ScalableText style={styles.date}>
-                {`${isMeal} for ${dayToShow}`}
+              {`with ${Option1[0] && Option1[0].title} & ${Option2[0] && Option2[0].title}`}
               </ScalableText>
             </Date>
           </PostHeaderContainer>
         </PostHeader>
         <Container>
-          {/* <HTML
-            html={
-              BreakfastMenu.length > 0 && isMeal === 'Breakfast' ?
-                BreakfastMenu[0].content
-                :
-                LunchMenu[0].content
-            }
-            imagesMaxWidth={Dimensions.get('window').width - 48}
-            baseFontStyle={{ fontFamily: 'Lato-Regular' }}
-            {...htmlStyles}
-          /> */}
-          {/* <PrimaryButton
-            onPress={handleMeal}
-            text={isMeal === 'Breakfast' ? "See Lunch Menu" : "See Breakfast Menu"}
-          /> */}
-
-          <NutritionalFacts>
+          <NutritionalFacts style={styles.NF_Card}>
             <Title theme={theme}>Nutritional Facts:</Title>
             <Text>Portion Size 1 cup</Text>
             <View style={styles.NF_Big_separator}></View>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Calories</Text><Text>230 kcal</Text>
+              <Text style={styles.subtitle}>Calories</Text>
+              <Text>{`${getKcal()} kcal`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fat</Text><Text>25.4 g</Text>
+              <Text style={styles.subtitle}>Fat</Text>
+              <Text>{`${getFat()} g`}</Text>
             </NutritionalFactsRow>
 
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Sodium</Text><Text>1034 g</Text>
+              <Text style={styles.subtitle}>Sodium</Text>
+              <Text>{`${getSodium()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Carbs</Text><Text>56.3 g</Text>
+              <Text style={styles.subtitle}>Carbs</Text>
+              <Text>{`${getCarbs()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fiber</Text><Text>4 g</Text>
+              <Text style={styles.subtitle}>Fiber</Text>
+              <Text>{`${getFiber()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Protein</Text><Text>29 g</Text>
+              <Text style={styles.subtitle}>Protein</Text>
+              <Text>{`${getProtein()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Allergens</Text><Text>wheat, milk</Text>
+              <Text style={styles.subtitle}>Allergens</Text>
+              <Text>{getAllergens()}</Text>
             </NutritionalFactsRow>
             <View style={styles.NF_Big_separator}></View>
           </NutritionalFacts>
+          
+          <HTML html={optionMeals} />
+
         </Container>
       </ScrollView>
     </SafeAreaView>
@@ -311,6 +351,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
     height: 5,
     marginVertical: 3,
+  },
+  NF_Card: {
+    marginBottom: 24
   }
 });
 
