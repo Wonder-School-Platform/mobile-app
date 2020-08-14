@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {SafeAreaView, ScrollView, StyleSheet, Text, Dimensions, View, FlatList } from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, Text, Dimensions, View, Switch } from 'react-native';
 import HTML from 'react-native-render-html';
 const Entities = require('html-entities').XmlEntities;
-import {Ionicons} from '@expo/vector-icons';
+import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
 
 import WeekNavigation from '../components/WeeklyMenu/WeekNavigation';
 import {
@@ -41,6 +41,11 @@ const TheMenu = ({ data, theme }) => {
     setDayToShow(today);
   },[])
   const [isWeek, setIsWeek] = useState(0);
+
+  const [isMeal, setIsMeal] = useState('');
+  useEffect(() => {
+    setIsMeal(moment().format('HH') <= 11 ? 'Breakfast' : 'Lunch');
+  }, []);
 
   //Handling days and dates
   const handleWeekDay = () => {
@@ -101,7 +106,6 @@ const TheMenu = ({ data, theme }) => {
     const activeMenu = showSchool.edges.filter(menu => menu.node.menuPlan_month.menuPlanMonth === currentMonth);
     const menuPlan = activeMenu[0].node.daily_menu.menuPlan;
     setSelectedSchool(menuPlan);
-    console.log(menuPlan);
   };
 
   //All Menus
@@ -120,34 +124,35 @@ const TheMenu = ({ data, theme }) => {
   function MenuToShow(showThis) {
     listAllMenus.filter(filtered => {
       if (moment(filtered.menuDate).format('DD') === showThis) {
-        Meal.push(filtered.meal)
-        Option1.push(filtered.option1[0])
-        Option2.push(filtered.option2[0])
+        console.log(showThis, isMeal);
+        if (isMeal === 'Breakfast') {
+          Meal.push(filtered.breakfast)
+          Option1.push(filtered.breakfastOption1[0])
+          Option2.push(filtered.breakfastOption2[0])
+        } else {
+          Meal.push(filtered.lunch)
+          Option1.push(filtered.lunchOption1[0])
+          Option2.push(filtered.lunchOption2[0])
+        }
       }
     });
   }
-  MenuToShow(dayToShow);
+  MenuToShow(dayToShow, isMeal);
 
-  const optionMeals = `
-    <p><b>Option Meal 1: </b> ${Option1[0] && Option1[0].title}</p>
-    <p><b>Option Meal 2: </b> ${Option2[0] && Option2[0].title}</p>
-  `
+  const mealItems = [];
+  Meal[0] && Meal[0].createAMeal.map(item => mealItems.push(item.title));
+
+  const optionMeal1Items = [];
+  Option1 && Option1.map(item => optionMeal1Items.push(item.title));
+  
+  const optionMeal2Items = [];
+  Option2 && Option2.map(item => optionMeal2Items.push(item.title));
 
   /* console.log('Meal :', Meal);
   console.log('Option 1', Option1);
   console.log('Option 2', Option2); */
 
   //Nutritional Information
-  let allergens,
-  carbs,
-  fat,
-  fiber,
-  fieldGroupName,
-  kcal,
-  portionSize,
-  protein,
-  recipeNumber,
-  sodium;
 
   const getKcal = () => {
     let totalKcal = 0;
@@ -212,27 +217,30 @@ const TheMenu = ({ data, theme }) => {
   const iconWidth = Dimensions.get('window').width / 8;
   const iconWidthPx = iconWidth + 'px';
 
-  console.log(dataSchools)
-
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={{
+      backgroundColor: theme.colors.primary,
+      flex: 1,
+    }}>
         <DropDownPicker
         items={dataSchools && dataSchools}
-        containerStyle={{height: 50}}
+        containerStyle={{height: 50, borderRadius: 0}}
         style={{backgroundColor: theme.colors.primary, borderWidth: 0}}
         dropDownStyle={{backgroundColor: theme.colors.primary, borderColor: theme.colors.primary}}
         itemStyle={{
             justifyContent: 'flex-start',
             backgroundColor: theme.colors.primary,
         }}
-        arrowStyle={{color: 'white'}}
+        arrowColor={'#ffffff'}
+        arrowSize={24}
         labelStyle={{
-            fontSize: 14,
+            fontSize: 16,
             textAlign: 'left',
-            color: '#fff',
+            color: '#ffffff',
+            opacity: 0.5
         }}
-        activeLabelStyle={{fontFamily: 'Lato-Black'}}
-        placeholder='Filter by School'
+        activeLabelStyle={{fontFamily: 'Lato-Black', opacity: 1}}
+        placeholder='Filter Menus by School'
         onChangeItem={handleSelectedSchool}
     />
       
@@ -251,59 +259,88 @@ const TheMenu = ({ data, theme }) => {
         </FeaturedImage >
         <PostHeader style={styles.shadow} theme={theme}>
           <IconContainer height={iconWidthPx} width={iconWidthPx} theme={theme}>
-            <Ionicons name={'md-restaurant'} size={24} color={'#ffffff'} />
+            <MaterialCommunityIcons name={'food-fork-drink'} size={24} color={'#ffffff'} />
           </IconContainer>
           <PostHeaderContainer>
             <Title theme={theme}>
               <ScalableText style={styles.title}>
-                {Meal[0] && Meal[0].createAMeal[0].title}
+                {isMeal}
               </ScalableText>
             </Title>
             <Date theme={theme}>
               <ScalableText style={styles.date}>
-              {`with ${Option1[0] && Option1[0].title} & ${Option2[0] && Option2[0].title}`}
+              {`${moment().format('MMMM')} ${dayToShow}, ${moment().format('YYYY')}`}
               </ScalableText>
             </Date>
           </PostHeaderContainer>
+          <View style={{ width: 60, alignItems: 'center'}}>
+            <Switch
+              trackColor={{ false: "#7e7e7e", true: "#7e7e7e" }}
+              thumbColor="#ffffff"
+              ios_backgroundColor="#7e7e7e"
+              onValueChange={() => setIsMeal(isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast')}
+              value={isMeal === 'Breakfast' ? false : true}
+              style={{marginBottom: 5}}
+            />
+            <Text
+              style={{color: '#7e7e7e', fontSize: 7, textTransform: 'uppercase'}}
+            >
+              {`see ${isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast'}`}
+            </Text>
+          </View>
         </PostHeader>
         <Container>
+          <Title theme={theme}>Description:</Title>
+          <Paragraph theme={theme}>{mealItems.join(', ')}</Paragraph>
           <NutritionalFacts style={styles.NF_Card}>
             <Title theme={theme}>Nutritional Facts:</Title>
             <Text>Portion Size 1 cup</Text>
             <View style={styles.NF_Big_separator}></View>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Calories</Text>
+              <Text style={styles.subtitle}>Calories:</Text>
               <Text>{`${getKcal()} kcal`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fat</Text>
+              <Text style={styles.subtitle}>Fat:</Text>
               <Text>{`${getFat()} g`}</Text>
             </NutritionalFactsRow>
 
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Sodium</Text>
+              <Text style={styles.subtitle}>Sodium:</Text>
               <Text>{`${getSodium()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Carbs</Text>
+              <Text style={styles.subtitle}>Carbs:</Text>
               <Text>{`${getCarbs()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fiber</Text>
+              <Text style={styles.subtitle}>Fiber:</Text>
               <Text>{`${getFiber()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Protein</Text>
+              <Text style={styles.subtitle}>Protein:</Text>
               <Text>{`${getProtein()} g`}</Text>
             </NutritionalFactsRow>
             <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Allergens</Text>
-              <Text>{getAllergens()}</Text>
+              <Text style={styles.subtitle}>Allergens:</Text>
+              <Text style={{flex: 1, flexWrap:'wrap'}}>{getAllergens()}</Text>
             </NutritionalFactsRow>
             <View style={styles.NF_Big_separator}></View>
           </NutritionalFacts>
           
-          <HTML html={optionMeals} />
+          {Option1[0] &&
+            <>
+              <Title theme={theme}>Lunch Option 1:</Title>
+              <Paragraph theme={theme}>{optionMeal1Items}</Paragraph>
+            </>
+          }
+          
+          {Option2[0] &&
+            <>
+              <Title theme={theme}>Lunch Option 2:</Title>
+              <Paragraph theme={theme}>{optionMeal2Items}</Paragraph>
+            </>
+          }
 
         </Container>
       </ScrollView>
@@ -311,11 +348,35 @@ const TheMenu = ({ data, theme }) => {
   );
 };
 
+/* export default class StyleSheetFactory {
+  static getSheet(iconSize, iconColor) {
+      return StyleSheet.create({
+          icon : {
+              color: iconColor,
+              fontSize: iconSize
+          }
+      })
+  }
+}
+
+// index.js
+
+render() {
+  let myStyleSheet = StyleSheetFactory.getSheet(64, 'red')
+} */
+
+export class MenuStyles {
+  static MenusStylesheet(theme) {
+    return StyleSheet.create({
+      safeArea: {
+        backgroundColor: theme.colors.backgroundColor,
+        flex: 1,
+      }
+    })
+  }
+};
+
 const styles = StyleSheet.create({
-  safeArea: {
-    backgroundColor: '#00421c',
-    flex: 1,
-  },
   paddingH: {
     paddingHorizontal: 24
   },
@@ -361,13 +422,6 @@ const styles = StyleSheet.create({
 const htmlStyles = {
   tagsStyles: {
     p: {
-      fontSize: 18,
-      marginBottom: 16,
-      lineHeight: 26,
-      fontFamily: 'Lato-Light',
-    },
-    a: {
-      color: '#00421c',
       fontSize: 18,
       marginBottom: 16,
       lineHeight: 26,

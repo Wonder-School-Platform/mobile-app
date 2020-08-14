@@ -43,11 +43,9 @@ export const WEEKLY_MENU_POSTS_QUERY = gql`
                       }
                       daily_menu {
                         menuPlan {
-                          meal {
-                            fieldGroupName
-                            featuredImage {
-                              sourceUrl(size: MEDIUM)
-                            }
+                          fieldGroupName
+                          menuDate
+                          breakfast {
                             createAMeal {
                               ... on Recipe {
                                 id
@@ -66,43 +64,55 @@ export const WEEKLY_MENU_POSTS_QUERY = gql`
                                 }
                               }
                             }
-                          }
-                          fieldGroupName
-                          menuDate
-                          option1 {
-                            ... on Recipe {
-                              id
-                              title
-                              recipe_nutritional_info {
-                                allergens
-                                carbs
-                                fat
-                                fiber
-                                fieldGroupName
-                                kcal
-                                portionSize
-                                protein
-                                recipeNumber
-                                sodium
-                              }
+                            featuredImage {
+                              sourceUrl(size: MEDIUM)
                             }
                           }
-                          option2 {
+                          breakfastOption1 {
                             ... on Recipe {
                               id
                               title
-                              recipe_nutritional_info {
-                                allergens
-                                carbs
-                                fat
-                                fiber
-                                fieldGroupName
-                                kcal
-                                portionSize
-                                protein
-                                recipeNumber
-                                sodium
+                            }
+                          }
+                          breakfastOption2 {
+                            ... on Recipe {
+                              id
+                              title
+                            }
+                          }
+                          lunch {
+                            createAMeal {
+                              ... on Recipe {
+                                id
+                                title
+                                recipe_nutritional_info {
+                                  allergens
+                                  carbs
+                                  fat
+                                  fiber
+                                  fieldGroupName
+                                  kcal
+                                  portionSize
+                                  protein
+                                  recipeNumber
+                                  sodium
+                                }
                               }
+                            }
+                            featuredImage {
+                              sourceUrl(size: MEDIUM)
+                            }
+                          }
+                          lunchOption1 {
+                            ... on Recipe {
+                              id
+                              title
+                            }
+                          }
+                          lunchOption2 {
+                            ... on Recipe {
+                              id
+                              title
                             }
                           }
                         }
