@@ -143,10 +143,10 @@ const TheMenu = ({ data, theme }) => {
   Meal[0] && Meal[0].createAMeal.map(item => mealItems.push(item.title));
 
   const optionMeal1Items = [];
-  Option1 && Option1.map(item => optionMeal1Items.push(item.title));
+  Option1 && Option1.map(item => optionMeal1Items.push(item && item.title));
   
   const optionMeal2Items = [];
-  Option2 && Option2.map(item => optionMeal2Items.push(item.title));
+  Option2 && Option2.map(item => optionMeal2Items.push(item && item.title));
 
   /* console.log('Meal :', Meal);
   console.log('Option 1', Option1);
