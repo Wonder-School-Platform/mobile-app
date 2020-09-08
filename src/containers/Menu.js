@@ -94,16 +94,17 @@ const TheMenu = ({ data, theme }) => {
 
   const handleSelectedSchool = item => {
     console.log(item.value);
-    //setSelectedSchool(item.value);
+    currentSchool(item.value);
   }
 
-  function currentSchool() {
-    const districtSchools = data.districtSchools.edges;
-    const showSchool = districtSchools.map(district => {
-      return district.node.children.edges[0].node.menuPlans;
-    })[0];
+  function currentSchool(schoolFilter) {
+    const districtSchools = data.districtSchools.edges[0].node.children.edges;
+    const filterDistrictSchool = schoolFilter !== undefined ? 
+      districtSchools.filter(item => item.node.slug === schoolFilter)[0] : 
+      districtSchools[0];
+    const latestMenuPlan = filterDistrictSchool.node.menuPlans;
     
-    const activeMenu = showSchool.edges.filter(menu => menu.node.menuPlan_month.menuPlanMonth === currentMonth);
+    const activeMenu = latestMenuPlan.edges.filter(menu => menu.node.menuPlan_month.menuPlanMonth === currentMonth);
     const menuPlan = activeMenu[0].node.daily_menu.menuPlan;
     setSelectedSchool(menuPlan);
   };
@@ -246,7 +247,7 @@ const TheMenu = ({ data, theme }) => {
       
         
       <ScrollView style={styles.wrapper}>
-        <FeaturedImage  theme={theme} style={{ height: imageHeight }}>
+        <FeaturedImage  theme={theme} style={{ height: Meal.length <= 0 ? 135 : imageHeight }}>
           <MainImg source={{ uri: Meal[0] && Meal[0].featuredImage.sourceUrl }} />
           <WeekNavigation
             weekDates={weekDates}
@@ -257,91 +258,100 @@ const TheMenu = ({ data, theme }) => {
           />
           
         </FeaturedImage >
-        <PostHeader style={styles.shadow} theme={theme}>
-          <IconContainer height={iconWidthPx} width={iconWidthPx} theme={theme}>
-            <MaterialCommunityIcons name={'food-fork-drink'} size={24} color={'#ffffff'} />
-          </IconContainer>
-          <PostHeaderContainer>
-            <Title theme={theme}>
-              <ScalableText style={styles.title}>
-                {isMeal}
-              </ScalableText>
-            </Title>
-            <Date theme={theme}>
-              <ScalableText style={styles.date}>
-              {`${moment().format('MMMM')} ${dayToShow}, ${moment().format('YYYY')}`}
-              </ScalableText>
-            </Date>
-          </PostHeaderContainer>
-          <View style={{ width: 60, alignItems: 'center'}}>
-            <Switch
-              trackColor={{ false: "#7e7e7e", true: "#7e7e7e" }}
-              thumbColor="#ffffff"
-              ios_backgroundColor="#7e7e7e"
-              onValueChange={() => setIsMeal(isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast')}
-              value={isMeal === 'Breakfast' ? false : true}
-              style={{marginBottom: 5}}
-            />
-            <Text
-              style={{color: '#7e7e7e', fontSize: 7, textTransform: 'uppercase'}}
-            >
-              {`see ${isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast'}`}
-            </Text>
-          </View>
-        </PostHeader>
+
+        {Meal.length > 0 && 
+          <PostHeader style={styles.shadow} theme={theme}>
+            <IconContainer height={iconWidthPx} width={iconWidthPx} theme={theme}>
+              <MaterialCommunityIcons name={'food-fork-drink'} size={24} color={'#ffffff'} />
+            </IconContainer>
+            <PostHeaderContainer>
+              <Title theme={theme}>
+                <ScalableText style={styles.title}>
+                  {isMeal}
+                </ScalableText>
+              </Title>
+              <Date theme={theme}>
+                <ScalableText style={styles.date}>
+                {`${moment().format('MMMM')} ${dayToShow}, ${moment().format('YYYY')}`}
+                </ScalableText>
+              </Date>
+            </PostHeaderContainer>
+            <View style={{ width: 60, alignItems: 'center'}}>
+              <Switch
+                trackColor={{ false: "#7e7e7e", true: "#7e7e7e" }}
+                thumbColor="#ffffff"
+                ios_backgroundColor="#7e7e7e"
+                onValueChange={() => setIsMeal(isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast')}
+                value={isMeal === 'Breakfast' ? false : true}
+                style={{marginBottom: 5}}
+              />
+              <Text
+                style={{color: '#7e7e7e', fontSize: 7, textTransform: 'uppercase'}}
+              >
+                {`see ${isMeal === 'Breakfast' ? 'Lunch' : 'Breakfast'}`}
+              </Text>
+            </View>
+          </PostHeader>
+        }
+        
         <Container>
-          <Title theme={theme}>Description:</Title>
-          <Paragraph theme={theme}>{mealItems.join(', ')}</Paragraph>
-          <NutritionalFacts style={styles.NF_Card}>
-            <Title theme={theme}>Nutritional Facts:</Title>
-            <Text>Portion Size 1 cup</Text>
-            <View style={styles.NF_Big_separator}></View>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Calories:</Text>
-              <Text>{`${getKcal()} kcal`}</Text>
-            </NutritionalFactsRow>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fat:</Text>
-              <Text>{`${getFat()} g`}</Text>
-            </NutritionalFactsRow>
-
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Sodium:</Text>
-              <Text>{`${getSodium()} g`}</Text>
-            </NutritionalFactsRow>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Carbs:</Text>
-              <Text>{`${getCarbs()} g`}</Text>
-            </NutritionalFactsRow>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Fiber:</Text>
-              <Text>{`${getFiber()} g`}</Text>
-            </NutritionalFactsRow>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Protein:</Text>
-              <Text>{`${getProtein()} g`}</Text>
-            </NutritionalFactsRow>
-            <NutritionalFactsRow>
-              <Text style={styles.subtitle}>Allergens:</Text>
-              <Text style={{flex: 1, flexWrap:'wrap'}}>{getAllergens()}</Text>
-            </NutritionalFactsRow>
-            <View style={styles.NF_Big_separator}></View>
-          </NutritionalFacts>
-          
-          {Option1[0] &&
+          {Meal.length <= 0 ? 
+            <Title theme={theme} style={{textAlign: 'center'}}>No meal available for this date.</Title>
+            :
             <>
-              <Title theme={theme}>Lunch Option 1:</Title>
-              <Paragraph theme={theme}>{optionMeal1Items}</Paragraph>
+              <Title theme={theme}>Description:</Title>
+              <Paragraph theme={theme}>{mealItems.join(', ')}</Paragraph>
+              <NutritionalFacts style={styles.NF_Card}>
+                <Title theme={theme}>Nutritional Facts:</Title>
+                <Text>Portion Size 1 cup</Text>
+                <View style={styles.NF_Big_separator}></View>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Calories:</Text>
+                  <Text>{`${getKcal()} kcal`}</Text>
+                </NutritionalFactsRow>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Fat:</Text>
+                  <Text>{`${getFat()} g`}</Text>
+                </NutritionalFactsRow>
+
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Sodium:</Text>
+                  <Text>{`${getSodium()} g`}</Text>
+                </NutritionalFactsRow>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Carbs:</Text>
+                  <Text>{`${getCarbs()} g`}</Text>
+                </NutritionalFactsRow>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Fiber:</Text>
+                  <Text>{`${getFiber()} g`}</Text>
+                </NutritionalFactsRow>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Protein:</Text>
+                  <Text>{`${getProtein()} g`}</Text>
+                </NutritionalFactsRow>
+                <NutritionalFactsRow>
+                  <Text style={styles.subtitle}>Allergens:</Text>
+                  <Text style={{flex: 1, flexWrap:'wrap'}}>{getAllergens()}</Text>
+                </NutritionalFactsRow>
+                <View style={styles.NF_Big_separator}></View>
+              </NutritionalFacts>
+              
+              {Option1[0] &&
+                <>
+                  <Title theme={theme}>Lunch Option 1:</Title>
+                  <Paragraph theme={theme}>{optionMeal1Items}</Paragraph>
+                </>
+              }
+              
+              {Option2[0] &&
+                <>
+                  <Title theme={theme}>Lunch Option 2:</Title>
+                  <Paragraph theme={theme}>{optionMeal2Items}</Paragraph>
+                </>
+              }
             </>
           }
-          
-          {Option2[0] &&
-            <>
-              <Title theme={theme}>Lunch Option 2:</Title>
-              <Paragraph theme={theme}>{optionMeal2Items}</Paragraph>
-            </>
-          }
-
         </Container>
       </ScrollView>
     </SafeAreaView>

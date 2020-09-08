@@ -11,12 +11,12 @@ const cache = new InMemoryCache({ fragmentMatcher });
 
 export const schoolClient = new ApolloClient({
   cache,
-  uri: 'http://catoosa.wschoolsdev.wpengine.com/graphql',
+  uri: 'http://catoosa.schoolhousesolutions.com/graphql',
   resolvers: {}
 });
 
 export const keystoneClient = new ApolloClient({
   cache,
-  uri: 'http://keystone.wschoolsdev.wpengine.com/graphql',
+  uri: 'https://lunchroomzoom.com/graphql',
   resolvers: {}
 });
